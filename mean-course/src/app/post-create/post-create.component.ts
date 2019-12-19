@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post-create.component.sass']
 })
 export class PostCreateComponent implements OnInit {
-  newPost = '';
+  newPost = 'NO CONTENT';
 
 
   constructor() { }
@@ -14,7 +14,8 @@ export class PostCreateComponent implements OnInit {
   ngOnInit() {
   }
 
-  onAddPost() {
+  onAddPost(postInput: HTMLTextAreaElement) {
+    console.dir(postInput);
     this.newPost = "The user's post";
   }
 
