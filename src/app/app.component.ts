@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  posts = [];
+  storedPosts = [];
 
-  onPostAdded() {
-    this.posts.push(post); //add this post to the empty array above to show posts.
+  onPostAdded(post) { //was missing post as an argument!! Angular couldn't connect the dots.
+    this.storedPosts.push(post); //add this post to the empty array above to show posts.
   }
 }

@@ -18,7 +18,7 @@ export class PostCreateComponent implements OnInit {
 
   onAddPost() {
     const post = {title: this.enteredTitle, content: this.enteredContent};
-    this.postCreated.emit(post); //important to bind post to it so it will output the title and content.
+    this.postCreated.emit(post); //important to bind post as argument to it so it will output the title and content.
   }
 
 }
