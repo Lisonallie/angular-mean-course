@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import { Post } from '../post.model';
 import { PostsService} from '../posts.service';
 @Component({
@@ -6,16 +8,29 @@ import { PostsService} from '../posts.service';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.css']
 })
-export class PostListComponent implements OnInit {
-  @Input() posts: Post[] = []; //with Input, can bind to this element from the direct parent(app)
+export class PostListComponent implements OnInit, OnDestroy {
+  posts: Post[] = []; //@Input()    with Input, can bind to this element from the direct parent(app)
                 //add type post here to specify it's a post.
+  private postsSub: Subscription;
 
   constructor(public postsService: PostsService) { //public keyword automatically creates a new property in this component & stores the incoming value in that property
     
   }
 
   ngOnInit() { //lifecycle hook
-    this.posts = this.postsService.getPosts();
+    this.posts = this.postsService.getPosts(); //fetching
+    this.postsSub = this.postsService.getPostUpdateListener().subscribe((posts: Post[]) => {
+      this.posts = posts;
+      //now want to make sure that for the subscription we set up when it is not part of the DOM that it is not living anymore. otherwise there is a MEMORY LEAK
+    });
+    //subscribe subscribes you to the post update, takes 3 possible arguments:
+    //1: function which gets executed whenever new data is emitted
+    //2: will be called whenever an error is emitted
+    //3: function called whenever the observable is completed/ there are no more values to be expected
+  }
+
+  ngOnDestroy() {
+    this.postsSub.unsubscribe();
   }
 
 }
