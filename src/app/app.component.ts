@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-mean-course';
+  posts = [];
+
+  onPostAdded() {
+    this.posts.push(post); //add this post to the empty array above to show posts.
+  }
 }
