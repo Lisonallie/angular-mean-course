@@ -1,6 +1,7 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Post } from '../post.model';
 import { NgForm } from '@angular/forms';
+import { PostsService } from '../posts.service';
 
 @Component({
   selector: 'app-post-create',
@@ -10,10 +11,12 @@ import { NgForm } from '@angular/forms';
 export class PostCreateComponent implements OnInit {
   enteredTitle = "";
   enteredContent = "";
-  @Output() postCreated = new EventEmitter<Post>(); // this says it's going to output an event (postCreated)
+  // this says it's going to output an event (postCreated)
                                         //Adding Post here tells what type of data it's going to emit.(will be a Post)
+                                        //removed @Output as it won't be needed anymore
+                                        //postCreated = new EventEmitter<Post>(); all removed don't need it anymore--replaced by Service
 
-  constructor() { }
+  constructor(public postsService: PostsService) { } //making it public lets you not have to make a bunch of other declarations to let angular know it's there and being used.
 
   ngOnInit() {
   }
