@@ -1,9 +1,27 @@
 <mat-card>
-    <mat-form-field>
-        <input matInput type="text" [(ngModel)]="enteredTitle"> <!-- two way binding, also with enteredContent below. get user input. -->
-    </mat-form-field>
-    <mat-form-field>
-        <textarea matInput rows="6" [(ngModel)]="enteredContent"></textarea>
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="onAddPost()">Save Post</button>
+    <form (submit)="onAddPost(postForm)" #postForm="ngForm"> <!-- Here is where the submit function from the button goes for when the FORM is submitted 
+                                    add local reference #postForm-- gives us access to the form object angular created for us
+                                    then pass postForm as an argument to onAddPost --> 
+        <mat-form-field>
+            <input 
+            matInput 
+            type="text"
+            name="title" 
+            ngModel
+            required> <!-- When you add the <form> above, the ngModel no longer needs to be told which element to bind to, but needs a name.
+                [(ngModel)]="enteredTitle" two way binding, also with enteredContent below. get user input. 
+                Now add HTML5 built-in validators to make sure the text that is entered is kosher -->
+        </mat-form-field>
+        <mat-form-field>
+            <textarea 
+            matInput 
+            rows="6"
+            name="content" 
+            ngModel
+            require></textarea> <!-- require causes this field to have to be filled in when the form is submitted in order to be submitted. -->
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Save Post</button>
+        <!-- (click)="onAddPost() don't want to use this anymore because the button knows now that it's going
+        to be connected to the form. Now need to give it a type submit. -->
+    </form>
 </mat-card>
