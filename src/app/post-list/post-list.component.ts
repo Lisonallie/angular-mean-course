@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Post } from '../post.model';
 
 @Component({
   selector: 'app-post-list',
@@ -6,8 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./post-list.component.css']
 })
 export class PostListComponent implements OnInit {
-  @Input() posts = []; //with Input, can bind to this element from the direct parent(app)
-
+  @Input() posts: Post[] = []; //with Input, can bind to this element from the direct parent(app)
+                //add type post here to specify it's a post.
   constructor() { }
 
   ngOnInit() {
