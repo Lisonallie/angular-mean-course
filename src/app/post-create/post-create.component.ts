@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../post.model';
 import { NgForm } from '@angular/forms';
 import { PostsService } from '../posts.service';
 
@@ -25,9 +24,10 @@ export class PostCreateComponent implements OnInit {
     if (form.invalid) {
       return; //don't let the form submit if it isn't filled in
     }
-    const post: Post = {title: form.value.title, content: form.value.content}; //FOr Post here you don't need to specify that it's an array.
+    // const post: Post = {title: form.value.title, content: form.value.content}; //FOr Post here you don't need to specify that it's an array.
                               //These new declarations instead of giving the inputs their own functions, access the form directly through the ngModel names
-    this.postCreated.emit(post); //important to bind post as argument to it so it will output the title and content.
+    this.postsService.addPost(form.value.title, form.value.content);
+                              // this.postCreated.emit(post);  important to bind post as argument to it so it will output the title and content.
   }
 
 }
