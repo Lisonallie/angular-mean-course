@@ -17,6 +17,15 @@ const app = express();
 //     next();
 // });
 
+mongoose.connect("mongodb+srv://Lisonallie:2UN7QJe79IIs5vTV@angular-posts-4ssd5.mongodb.net/test?retryWrites=true&w=majority")
+//gives feedback in nodemon whether the database connected or not
+    .then(() => {
+        console.log('connected to database');
+    })
+    .catch(() => {
+        console.log('connection failed');
+    });
+
 
 //returns a valid express middleware for parsing json data
 //Definitely want this above our POST method & is nice before headers
