@@ -21,7 +21,11 @@ app.use('/api/posts',(request, response, next) => {
         title: 'second server-side post', 
         content: 'this is coming from the server!'}
     ];
-    response.json();
+    //can send posts or a more complicated method::
+    response.status(200).json({
+        message: "posts fetched successfully!",
+        posts: posts
+    });
     //response.send('hello friend');
 });
 
