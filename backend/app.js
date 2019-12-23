@@ -1,6 +1,10 @@
 const express = require("express");
 
 const bodyParser = require("body-parser");
+
+//convention to capitalize
+const Post = require('./models/post');
+
 //chain of middlewares (funnel send express & have different parts & each part does something different w/ the request)
 const app = express();
 //uses a new middleware on our app & on our request
@@ -45,7 +49,11 @@ app.post("/api/posts", (request, response, next) => {
   //check if getting data to that route works
   //posts have a request body so they have data attached to them --install extra package which is convenience middleware which automatically extracts incoming request data & adds it to a new field on that request object where we can conveniently access it
   //node express package, parses incoming request bodies, extracts the request data stream & converts it to data object we can use, then re-adds it on a special property to the request object.
-  const post = request.body;
+  // old code: const post = request.body;
+  const post = new Post({
+      title: request.body.title,
+      content: request.body.content,
+  });
   console.log(post);
   //typical status code for everything is ok, new resource was created
   response.status(201).json({
