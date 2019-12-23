@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Post } from './post.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,24 @@ export class PostsService {
     //                                              vvv need to listen (subscribe)
     //for observables built in to angular like the http client, the unsubscribe is handled automatically by angular
     //get method here already handles the json format input and outputs javascript
-    this.http.get<{id: string, message: string, posts: Post[]}>('http://localhost:3000/api/posts').subscribe((postData) => {
+    this.http
+    .get<{id: string, message: string, posts: any}>(
+      'http://localhost:3000/api/posts'
+      )
+      .pipe(map((postData) => {
+        //convert any post with map
+        return postData.posts.map(post => {
+          return {
+            title: post.title,
+            content: post.content,
+            id: post._id
+          };
+        });
+      }))
+      .subscribe((transformedPosts) => {
       //when we get a response gives access to this response
       //setting the posts to the posts coming from the server
-      this.posts = postData.posts;
+      this.posts = transformedPosts;
       //inform the other parts of our app about this update
       this.postsUpdated.next([...this.posts]);
     });
