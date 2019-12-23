@@ -3,6 +3,9 @@ const http = require('http');
 
 //with this imported we can use the http package to create a new server
 //takes a function as an argument and the function has 2 arguments request & response
-http.createServer((request, response) => {
+const server = http.createServer((request, response) => {
     response.end('This is my first response');
 });
+//pass server a port to listen to
+//            vv access environment variable with pre-determined port OR go to port 3000
+server.listen(process.env.PORT || 3000);
