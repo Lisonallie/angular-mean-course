@@ -2,6 +2,8 @@ const express = require("express");
 
 const bodyParser = require("body-parser");
 
+const mongoose = require('mongoose');
+
 //convention to capitalize
 const Post = require('./models/post');
 
