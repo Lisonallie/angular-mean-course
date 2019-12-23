@@ -5,6 +5,7 @@ const app = express();
 //next() skips to next part of funnel^
 app.use((request, response, next) => {
     console.log('first middleware');
+    //without the next() creates a time-out because it doesn't get a response
     next();
 });
 
