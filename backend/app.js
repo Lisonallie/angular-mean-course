@@ -108,8 +108,10 @@ app.get("/api/posts", (request, response, next) => {
 
 //                      vv able to access id property here
 app.delete("/api/posts/:id", (request, response, next) => {
-    console.log(request.params.id);
-    response.status(200).json({message: 'Post deleted'});
+    Post.deleteOne({ _id: request.params.id }).then(result => {
+        console.log(result);
+        response.status(200).json({message: 'Post deleted'});
+    });
 });
 
 //export this app
