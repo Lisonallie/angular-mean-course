@@ -17,7 +17,7 @@ const app = express();
 app.use(bodyParser.json());
 
 //parses a different kind of body
-app/this.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }))
 
 //one additional middleware that adds CORS header
 app.use((request, response, next) => {
@@ -51,11 +51,12 @@ app.post("/api/posts", (request, response, next) => {
   response.status(201).json({
       message: 'post added'
   });
+  //can't add next() here because we are already sending a response so would get an error
 });
 
 //does something with the response from 1st next function
 //also ends response writing stream & returns this response
-app.use("/api/posts", (request, response, next) => {
+app.get("/api/posts", (request, response, next) => {
   const posts = [
     {
       id: "fad12421l",

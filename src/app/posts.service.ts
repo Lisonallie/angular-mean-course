@@ -35,7 +35,17 @@ export class PostsService {
 
   addPost(title: string, content: string) {
     const post: Post = { id: null, title: title, content: content};
-    this.posts.push(post);
-    this.postsUpdated.next([...this.posts]); //emits a new value(copy of array)
+    //Store it on the server (optimistic updating) updating local data before we have serverside communication that it's succeeded
+    //                                                                         vvv need to subscribe to the response or it does nothing
+    this.http.post<{message: string}>("http://localhost:3000/api/posts", post).subscribe((responseData) => {
+      console.log(responseData.message);
+      this.posts.push(post);
+      this.postsUpdated.next([...this.posts]);
+    });
+
+
+    //removing these from afterwards and into the subscribe function causes the data not to update until it has receivedthe server response. before it was doing it regardless.
+    // this.posts.push(post);
+    // this.postsUpdated.next([...this.posts]); //emits a new value(copy of array)
   }
 }
