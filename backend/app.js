@@ -9,6 +9,11 @@ app.use((request, response, next) => {
 });
 
 //does something with the response from 1st next function
+//also ends response writing stream & returns this response
 app.use((request, response, next) => {
     response.send('hello friend');
 });
+
+//export this app
+//exports the const & all the new middlewares we added to it
+module.exports = app;
