@@ -3,16 +3,26 @@ const express = require('express');
 const app = express();
 //uses a new middleware on our app & on our request
 //next() skips to next part of funnel^
-app.use((request, response, next) => {
-    console.log('first middleware');
-    //without the next() creates a time-out because it doesn't get a response
-    next();
-});
+// app.use((request, response, next) => {
+//     console.log('first middleware');
+//     //without the next() creates a time-out because it doesn't get a response
+//     next();
+// });
 
 //does something with the response from 1st next function
 //also ends response writing stream & returns this response
-app.use((request, response, next) => {
-    response.send('hello friend');
+app.use('/api/posts',(request, response, next) => {
+    const posts = [
+        { id: 'fad12421l', 
+        title: 'first server-side post', 
+        content: 'this is coming from the server'},
+
+        { id: 'ksajflaj132', 
+        title: 'second server-side post', 
+        content: 'this is coming from the server!'}
+    ];
+    response.json();
+    //response.send('hello friend');
 });
 
 //export this app
