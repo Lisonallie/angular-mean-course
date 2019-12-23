@@ -9,3 +9,7 @@ const server = http.createServer((request, response) => {
 //pass server a port to listen to
 //            vv access environment variable with pre-determined port OR go to port 3000
 server.listen(process.env.PORT || 3000);
+
+//if you change something in the server-side code in this file, need to quit & restart server to see changes.
+
+//Going to use expressjs to avoid writing directly in nodejs for the backend.
