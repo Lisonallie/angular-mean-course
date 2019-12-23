@@ -1,5 +1,6 @@
 //starting a server with error handling
 const app = require('./backend/app');
+const debug = require('debug')('node-angular');
 const http = require('http');
 
 //makes sure that when we try to set up a port and especially when we receive it from an environment variable, we make sure it's a valid number
