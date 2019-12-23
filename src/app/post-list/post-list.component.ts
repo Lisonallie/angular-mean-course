@@ -18,7 +18,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() { //lifecycle hook
-    this.posts = this.postsService.getPosts(); //fetching
+    this.postsService.getPosts(); //fetching
     this.postsSub = this.postsService.getPostUpdateListener().subscribe((posts: Post[]) => {
       this.posts = posts; //updates whenever receives a new value
       //now want to make sure that for the subscription we set up when it is not part of the DOM that it is not living anymore. otherwise there is a MEMORY LEAK
