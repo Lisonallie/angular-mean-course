@@ -26,7 +26,7 @@ app.use((request, response, next) => {
   //allow domains with a certain header
   //if it doesn't have these headers access will be blocked
   response.setHeader(
-    "Access-Control-Allow-Header",
+    "Access-Control-Allow-Headers",
     "Origin, X-Requested-Width, Content-Type, Accept"
   );
   //allows us to control which methods can be used to access our data
