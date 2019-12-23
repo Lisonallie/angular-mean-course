@@ -9,6 +9,21 @@ const app = express();
 //     next();
 // });
 
+
+//one additional middleware that adds CORS header
+app.use((request, response, next) => {
+    //allow to access all resources
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    //allow domains with a certain header
+    //if it doesn't have these headers access will be blocked
+    response.setHeader("Access-Control-Allow-Header", "Origin, X-Requested-Width, Content-Type, Accept");
+    //allows us to control which methods can be used to access our data
+    //OPTIONS is a default request sent by the browser before sending the get/etc request to check if it's valid. must include
+    response.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS")
+    //continue to next middleware
+    next();
+});
+
 //does something with the response from 1st next function
 //also ends response writing stream & returns this response
 app.use('/api/posts',(request, response, next) => {
