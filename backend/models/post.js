@@ -9,3 +9,8 @@ const postSchema = mongoose.Schema({
     content: { type: String, required: true }
 });
 
+//mongoose needs a model to work with it
+//             vv name of model, should be capital
+                    //vv schema to use
+module.exports = mongoose.model('Post', postSchema);
+//^^ w/ use of this the model can be used outside of this file
