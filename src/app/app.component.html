@@ -1,5 +1,6 @@
 <app-header></app-header>
 <main>
-    <app-post-create></app-post-create> <!-- (postCreated)="onPostAdded($event)"   tells view to recognize the event stated in the declaration @output -->
-    <app-post-list></app-post-list> <!--  [posts]="storedPosts"  -->
+    <router-outlet></router-outlet>
+    <!-- <app-post-create></app-post-create> (postCreated)="onPostAdded($event)"   tells view to recognize the event stated in the declaration @output -->
+    <!-- <app-post-list></app-post-list>  [posts]="storedPosts"  -->
 </main>
