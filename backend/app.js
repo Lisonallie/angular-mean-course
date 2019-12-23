@@ -106,6 +106,12 @@ app.get("/api/posts", (request, response, next) => {
   //response.send('hello friend');
 });
 
+//                      vv able to access id property here
+app.delete("/api/posts/:id", (request, response, next) => {
+    console.log(request.params.id);
+    response.status(200).json({message: 'Post deleted'});
+});
+
 //export this app
 //exports the const & all the new middlewares we added to it
 module.exports = app;
