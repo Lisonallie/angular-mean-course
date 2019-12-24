@@ -79,6 +79,23 @@ app.post("/api/posts", (request, response, next) => {
   //can't add next() here because we are already sending a response so would get an error
 });
 
+//app.patch updates exisiting resource with new values, put replaces completely
+app.patch("/api/posts/:id", (request, response, next) => {
+  const post = new Post({
+    title: request.body.title,
+    content: request.body.content
+  });
+  //Post capital is post model
+  //               vv with underscore because it's still stored that way in the database and we're in the backend
+  //                    vvv id encoded in the URL
+  //                                        vvv this post is the post const we just declared within the function
+  Post.updateOne({ _id: request.params.id }, post).then(result => {
+    console.log(result);
+    response.status(200).json({ message: "update successful" });
+  });
+});
+
+
 //does something with the response from 1st next function
 //also ends response writing stream & returns this response
 app.get("/api/posts", (request, response, next) => {
