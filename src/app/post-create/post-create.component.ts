@@ -83,7 +83,8 @@ export class PostCreateComponent implements OnInit {
       this.postsService.updatePost(this.postId, this.form.value.title, this.form.value.content);
     }
                               // this.postCreated.emit(post);  important to bind post as argument to it so it will output the title and content.
-    this.form.resetForm(); //resets the form values after it's been submitted
+    this.form.reset(); //resets the form values after it's been submitted
+    //form.resetForm() for template-driven form
   }
 
 }
