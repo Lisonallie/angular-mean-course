@@ -7,3 +7,7 @@ mat-spinner {
     width: 50%;
     height: auto;
 }
+
+input[type="file"] {
+    visibility: hidden;
+}
