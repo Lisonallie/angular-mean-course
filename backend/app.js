@@ -131,7 +131,7 @@ app.get("/api/posts/:id", (request, response, next) => {
   Post.findById(request.params.id).then(post => {
     if (post) {
       //returning post from database
-      response.status(200).json(post);
+      response.status(200).json(post); 
     } else {
       response.status(404).json({ message: "post not found" });
     }
