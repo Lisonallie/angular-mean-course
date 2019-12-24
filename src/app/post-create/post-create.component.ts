@@ -36,7 +36,8 @@ export class PostCreateComponent implements OnInit {
       //                                                            vv no execution required, (), angular executes it for you
       //                                                                                    vv need to execute this to configure the length
       'title': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
-      'content': new FormControl(null, {validators: [Validators.required]})
+      'content': new FormControl(null, {validators: [Validators.required]}),
+      'image': new FormControl(null)
     });
     //find whether we have a postId parameter or not
     this.route.paramMap
@@ -70,6 +71,7 @@ export class PostCreateComponent implements OnInit {
 
   onImageChosen(event: Event) { //Event is a default type you dont have to import
     const file = (event.target as HTMLInputElement).files[0] //as ... does a typescript conversion and clearly tells TS that the file is that sort of type w/ files property
+    
   }
 
   //onSavePost(form: NgForm) no longer valid because we no longer pass the form as an argument---we have our own form object^^^
