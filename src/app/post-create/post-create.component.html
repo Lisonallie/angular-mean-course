@@ -1,22 +1,24 @@
 <mat-card>
     <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
-    <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading"> <!-- Here is where the submit function from the button goes for when the FORM is submitted 
+    <form (submit)="onSavePost()" *ngIf="!isLoading"> <!-- Here is where the submit function from the button goes for when the FORM is submitted 
                                     add local reference #postForm-- gives us access to the form object angular created for us
                                     then pass postForm as an argument to onAddPost --> 
+                                    <!-- #postForm="ngForm"
+                                        (submit)="onSavePost(postForm)" -->
         <mat-form-field>
             <input 
             matInput 
             type="text"
             name="title" 
-            [ngModel]="post?.title"
-            required
-            minlength="3"
-            placeholder="Enter a title"
-            #title="ngModel"> <!-- [ngModel]="post.title" is one-way binding
+            placeholder="Enter a title"> <!-- [ngModel]="post.title" is one-way binding
                 When you add the <form> above, the ngModel no longer needs to be told which element to bind to, but needs a name.
-                [(ngModel)]="enteredTitle" two way binding, also with enteredContent below. get user input. 
-                Now add HTML5 built-in validators to make sure the text that is entered is kosher
-                #title adds a local reference for the error message below -->
+                    [(ngModel)]="enteredTitle" two way binding, also with enteredContent below. get user input. 
+                    Now add HTML5 built-in validators to make sure the text that is entered is kosher
+                    #title adds a local reference for the error message below -->
+                    <!-- [ngModel]="post?.title"
+                        #title="ngModel"
+                        required
+                        minlength="3" -->
             <mat-error *ngIf="title.invalid">
                 Please enter a post title.
             </mat-error>
@@ -25,11 +27,11 @@
             <textarea 
             matInput 
             rows="6"
-            name="content" 
-            [ngModel]="post?.content"
-            required
-            placeholder="Enter a post"
-            #content="ngModel"></textarea> <!-- required causes this field to have to be filled in when the form is submitted in order to be submitted. -->
+            name="content"
+            placeholder="Enter a post"></textarea> <!-- required causes this field to have to be filled in when the form is submitted in order to be submitted. -->
+            <!-- [ngModel]="post?.content"
+                #content="ngModel"
+                required -->
             <mat-error *ngIf="content.invalid">
                 Please enter post content.
             </mat-error>

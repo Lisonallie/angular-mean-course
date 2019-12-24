@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup } from '@angular/forms';
 import { PostsService } from '../posts.service';
 import { ActivatedRoute } from '@angular/router';
 import { ParamMap } from '@angular/router';
@@ -19,6 +19,7 @@ export class PostCreateComponent implements OnInit {
   //if it's pulic like below, can access it from within the template
   post: Post;
   isLoading = false;
+  form: FormGroup;
   // this says it's going to output an event (postCreated)
                                         //Adding Post here tells what type of data it's going to emit.(will be a Post)
                                         //removed @Output as it won't be needed anymore
