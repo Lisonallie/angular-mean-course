@@ -73,7 +73,20 @@ export class PostsService {
   updatePost(id: string, title: string, content: string) {
     const post: Post = { id: id, title: title, content: content };
     this.http.patch("http://localhost:3000/api/posts/" + id, post)
-      .subscribe(response => console.log(response));
+      .subscribe(response => {
+        //locally update the posts once you have the successful response
+        //clone post array and store it in this constant
+        const updatedPosts = [...this.posts];
+        //Search for old post version by its' id
+        //                                vv returns true if we found the post we're looking for
+        const oldPostIndex = updatedPosts.findIndex(posts => posts.id === post.id);
+        //found index of post I want to replace
+        updatedPosts[oldPostIndex] = post;
+        //immutable way of updating the old post
+        this.posts = updatedPosts;
+        //send copy of updatedPosts with it
+        this.postsUpdated.next([...this.posts]);
+      });
   }
 
   deletePost(postId: string) {

@@ -82,6 +82,8 @@ app.post("/api/posts", (request, response, next) => {
 //app.patch updates exisiting resource with new values, put replaces completely
 app.patch("/api/posts/:id", (request, response, next) => {
   const post = new Post({
+    //need _id or it tries to make a new post with a new id
+    _id: request.body.id,
     title: request.body.title,
     content: request.body.content
   });
@@ -90,7 +92,6 @@ app.patch("/api/posts/:id", (request, response, next) => {
   //                    vvv id encoded in the URL
   //                                        vvv this post is the post const we just declared within the function
   Post.updateOne({ _id: request.params.id }, post).then(result => {
-    console.log(result);
     response.status(200).json({ message: "update successful" });
   });
 });
@@ -121,6 +122,20 @@ app.get("/api/posts", (request, response, next) => {
   //     }
   //   ];
   //response.send('hello friend');
+});
+
+
+app.get("/api/posts/:id", (request, response, next) => {
+  //reach out to database and find post with that id
+  //Post capital is post model
+  Post.findById(request.params.id).then(post => {
+    if (post) {
+      //returning post from database
+      response.status(200).json(post);
+    } else {
+      response.status(404).json({ message: "post not found" });
+    }
+  })
 });
 
 //                      vv able to access id property here
