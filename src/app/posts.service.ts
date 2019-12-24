@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Post } from './post.model';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class PostsService {
   private posts: Post[] = []; //declare posts class exportation
   private postsUpdated = new Subject<Post[]>(); //passing a list of posts to the subject
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   getPosts() {
     //want to return get request from backend (inject angular http client into the service)
@@ -64,6 +65,8 @@ export class PostsService {
       console.log(responseData.message);
       this.posts.push(post);
       this.postsUpdated.next([...this.posts]);
+      //after done subscribing, reach out to router & navigater
+      this.router.navigate(["/"]);
     });
 
 
@@ -89,6 +92,7 @@ export class PostsService {
         this.posts = updatedPosts;
         //send copy of updatedPosts with it
         this.postsUpdated.next([...this.posts]);
+        this.router.navigate(["/"]);
       });
   }
 
