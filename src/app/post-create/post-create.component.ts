@@ -43,7 +43,7 @@ export class PostCreateComponent implements OnInit {
     });
   }
 
-  onAddPost(form: NgForm) { //NgForm is a new imported type that the behind the scenes angular uses for forms
+  onSavePost(form: NgForm) { //NgForm is a new imported type that the behind the scenes angular uses for forms
     if (form.invalid) {
       return; //don't let the form submit if it isn't filled in
     }
