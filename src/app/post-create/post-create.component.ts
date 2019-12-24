@@ -55,6 +55,11 @@ export class PostCreateComponent implements OnInit {
             this.isLoading = false;
             //                        vv post data coming from database
             this.post = {id: postData._id, title: postData.title, content: postData.content};
+            //override values for form control that were previously registerd(null)
+            this.form.setValue({
+              'title': this.post.title, 
+            'content': this.post.content
+          });
           });
       } else {
         this.mode = 'create';
@@ -63,8 +68,9 @@ export class PostCreateComponent implements OnInit {
     });
   }
 
-  onSavePost(form: NgForm) { //NgForm is a new imported type that the behind the scenes angular uses for forms
-    if (form.invalid) {
+  //onSavePost(form: NgForm) no longer valid because we no longer pass the form as an argument---we have our own form object^^^
+  onSavePost() { //NgForm is a new imported type that the behind the scenes angular uses for forms
+    if (this.form.invalid) { // <--- add 'this' before form.invalid (reactive form)
       return; //don't let the form submit if it isn't filled in
     }
     // vvv don't need to reset as false because we navigate away from this page anyways
@@ -72,12 +78,12 @@ export class PostCreateComponent implements OnInit {
     if (this.mode === 'create') {
       // const post: Post = {title: form.value.title, content: form.value.content}; //FOr Post here you don't need to specify that it's an array.
                                 //These new declarations instead of giving the inputs their own functions, access the form directly through the ngModel names
-      this.postsService.addPost(form.value.title, form.value.content);
+      this.postsService.addPost(this.form.value.title, this.form.value.content);
     } else {
-      this.postsService.updatePost(this.postId, form.value.title, form.value.content);
+      this.postsService.updatePost(this.postId, this.form.value.title, this.form.value.content);
     }
                               // this.postCreated.emit(post);  important to bind post as argument to it so it will output the title and content.
-    form.resetForm(); //resets the form values after it's been submitted
+    this.form.resetForm(); //resets the form values after it's been submitted
   }
 
 }
