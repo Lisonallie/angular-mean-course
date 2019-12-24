@@ -90,3 +90,5 @@ router.post("/api/posts", (request, response, next) => {
           response.status(200).json({message: 'Post deleted'});
       });
   });
+
+  module.exports = router;
