@@ -59,6 +59,9 @@ app.use((request, response, next) => {
   next();
 });
 
+//make app aware of post routes from posts.js
+app.use(postsRoutes);
+
 //export this app
 //exports the const & all the new middlewares we added to it
 module.exports = app;
