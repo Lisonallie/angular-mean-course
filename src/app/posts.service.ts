@@ -79,8 +79,9 @@ export class PostsService {
         //locally update the posts once you have the successful response
         //clone post array and store it in this constant
         const updatedPosts = [...this.posts];
+        //vvthis doesn't work because we never visit the post list array so there is nothing to updatevv
         //Search for old post version by its' id
-        //                                vv returns true if we found the post we're looking for
+        //                                  vv returns true if we found the post we're looking for
         const oldPostIndex = updatedPosts.findIndex(posts => posts.id === post.id);
         //found index of post I want to replace
         updatedPosts[oldPostIndex] = post;
