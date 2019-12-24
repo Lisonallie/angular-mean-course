@@ -33,6 +33,9 @@
             <mat-error *ngIf="content.invalid">
                 Please enter post content.
             </mat-error>
+            <div>
+                <button mat-button type="button">Choose Image</button>
+            </div>
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit">Save Post</button>
         <!-- (click)="onAddPost() don't want to use this anymore because the button knows now that it's going
