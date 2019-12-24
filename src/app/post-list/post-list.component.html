@@ -9,7 +9,7 @@
                 <mat-action-row> <!-- adds action row -->
                     <!-- bind to a property of routerLink that's of the same name -->
                     <!--                                   vv referring to the post we're looping through -->
-                    <a mat-button [routerLink]="['/edit', 'post.id']">EDIT</a>
+                    <a mat-button [routerLink]="['/edit', post.id]">EDIT</a>
                     <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
                 </mat-action-row>
     </mat-expansion-panel>

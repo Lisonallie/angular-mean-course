@@ -13,10 +13,11 @@ import { Post } from '../post.model';
 export class PostCreateComponent implements OnInit {
   enteredTitle = "";
   enteredContent = "";
-  //private property
+  //private property just means it's only useable in this file
   private mode = 'create';
   private postId: string;
-  private post: Post;
+  //if it's pulic like below, can access it from within the template
+  post: Post;
   // this says it's going to output an event (postCreated)
                                         //Adding Post here tells what type of data it's going to emit.(will be a Post)
                                         //removed @Output as it won't be needed anymore

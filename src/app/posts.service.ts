@@ -70,6 +70,10 @@ export class PostsService {
     // this.postsUpdated.next([...this.posts]); //emits a new value(copy of array)
   }
 
+  updatePost(id: string, title: string, content: string) {
+    const post: Post = { id: id, title: title, content: content };
+  }
+
   deletePost(postId: string) {
     const confirmation = window.confirm("Are you sure you want to delete this post?");
     this.http.delete("http://localhost:3000/api/posts/" + postId)
