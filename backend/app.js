@@ -7,6 +7,8 @@ const mongoose = require("mongoose");
 //convention to capitalize
 const Post = require("./models/post");
 
+const postsRoutes = require("./routes/posts");
+
 //chain of middlewares (funnel send express & have different parts & each part does something different w/ the request)
 const app = express();
 //uses a new middleware on our app & on our request

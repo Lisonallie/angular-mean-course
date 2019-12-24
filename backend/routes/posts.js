@@ -1,6 +1,7 @@
 const express = require("express");
 
 const router = express.Router();
+const Post = require("../models/post");
 
 //ataches a middleware triggered for incoming post requests
 router.post("/api/posts", (request, response, next) => {
