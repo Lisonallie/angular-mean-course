@@ -17,7 +17,7 @@ const app = express();
 //     next();
 // });
 
-//                                                                                          vv change from test to another name and database with this name will be created for you
+//                                                                             vv change from test to another name and database with this name will be created for you
 mongoose
   .connect(
     "mongodb+srv://Lisonallie:2UN7QJe79IIs5vTV@angular-posts-4ssd5.mongodb.net/node-angular?retryWrites=true&w=majority"

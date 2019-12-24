@@ -23,6 +23,7 @@ export class PostsService {
     .get<{id: string, message: string, posts: any}>(
       'http://localhost:3000/api/posts'
       )
+      //postData is declared here & given a value
       .pipe(map((postData) => {
         //convert any post with map
         return postData.posts.map(post => {
