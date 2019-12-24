@@ -20,6 +20,7 @@ export class PostCreateComponent implements OnInit {
   post: Post;
   isLoading = false;
   form: FormGroup;
+  imagePreview: string;
   // this says it's going to output an event (postCreated)
                                         //Adding Post here tells what type of data it's going to emit.(will be a Post)
                                         //removed @Output as it won't be needed anymore
@@ -75,7 +76,8 @@ export class PostCreateComponent implements OnInit {
     this.form.patchValue({image: file});
     // informs angular that I changed the value and it should reevaluate and store that value internally and check whether the value that's been patched is valid
     this.form.get('image').updateValueAndValidity();
-    console.log(file, this.form);
+    //convert my image to a data-URL, url that can be used by the normal image tag
+    
   }
 
   //onSavePost(form: NgForm) no longer valid because we no longer pass the form as an argument---we have our own form object^^^
