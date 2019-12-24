@@ -48,6 +48,11 @@ export class PostsService {
     return this.postsUpdated.asObservable(); //returns an object from which we can listen, but can't emit
   }
 
+  getPost(id: string) {
+    //pull out all the properties of an object & add them to a new object
+    return {...this.posts.find(post => post.id === id)};
+  }
+
   addPost(title: string, content: string) {
     const post: Post = { id: null, title: title, content: content};
     //Store it on the server (optimistic updating) updating local data before we have serverside communication that it's succeeded

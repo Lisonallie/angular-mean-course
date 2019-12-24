@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PostsService } from '../posts.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-create',
@@ -10,14 +11,30 @@ import { PostsService } from '../posts.service';
 export class PostCreateComponent implements OnInit {
   enteredTitle = "";
   enteredContent = "";
+  //private property
+  private mode = 'create';
+  private postId: string;
   // this says it's going to output an event (postCreated)
                                         //Adding Post here tells what type of data it's going to emit.(will be a Post)
                                         //removed @Output as it won't be needed anymore
                                         //postCreated = new EventEmitter<Post>(); all removed don't need it anymore--replaced by Service
 
-  constructor(public postsService: PostsService) {} //making it public lets you not have to make a bunch of other declarations to let angular know it's there and being used.
+  constructor(public postsService: PostsService, public route: ActivatedRoute) {} //making it public lets you not have to make a bunch of other declarations to let angular know it's there and being used.
 
   ngOnInit() {
+    //find whether we have a postId parameter or not
+    this.route.paramMap
+    .subscribe((paramMap: ParamMap) => {
+      //paramMap object
+      //          vv checks if it has it! amazing!
+      if (paramMap.has('postId')) {
+        this.mode = "edit";
+        this.postId = paramMap.get('postId');
+      } else {
+        this.mode = 'create';
+        this.postId = null;
+      }
+    });
   }
 
   onAddPost(form: NgForm) { //NgForm is a new imported type that the behind the scenes angular uses for forms
