@@ -36,10 +36,12 @@ export class PostCreateComponent implements OnInit {
         this.mode = "edit";
         this.postId = paramMap.get('postId');
         //show spinner when start fetching
+        this.isLoading = true;
         //taking this post and storing it
         this.postsService.getPost(this.postId)
           .subscribe(postData => {
             //hide spinner when done fetching
+            this.isLoading = false;
             //                        vv post data coming from database
             this.post = {id: postData._id, title: postData.title, content: postData.content};
           });
