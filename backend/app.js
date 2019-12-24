@@ -60,7 +60,8 @@ app.use((request, response, next) => {
 });
 
 //make app aware of post routes from posts.js
-app.use(postsRoutes);
+//      vv filter for requests going to this 
+app.use("/api/posts", postsRoutes);
 
 //export this app
 //exports the const & all the new middlewares we added to it
