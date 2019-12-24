@@ -12,14 +12,17 @@ export class PostListComponent implements OnInit, OnDestroy {
   posts: Post[] = []; //@Input()    with Input, can bind to this element from the direct parent(app)
                 //add type post here to specify it's a post.
   private postsSub: Subscription;
+  isLoading = false;
 
   constructor(public postsService: PostsService) { //public keyword automatically creates a new property in this component & stores the incoming value in that property
     
   }
 
   ngOnInit() { //lifecycle hook
+    this.isLoading = true;
     this.postsService.getPosts(); //fetching
     this.postsSub = this.postsService.getPostUpdateListener().subscribe((posts: Post[]) => {
+      this.isLoading = false;
       this.posts = posts; //updates whenever receives a new value
       //now want to make sure that for the subscription we set up when it is not part of the DOM that it is not living anymore. otherwise there is a MEMORY LEAK
     });

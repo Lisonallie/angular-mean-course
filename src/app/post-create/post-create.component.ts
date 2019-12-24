@@ -56,6 +56,8 @@ export class PostCreateComponent implements OnInit {
     if (form.invalid) {
       return; //don't let the form submit if it isn't filled in
     }
+    // vvv don't need to reset as false because we navigate away from this page anyways
+    this.isLoading = true;
     if (this.mode === 'create') {
       // const post: Post = {title: form.value.title, content: form.value.content}; //FOr Post here you don't need to specify that it's an array.
                                 //These new declarations instead of giving the inputs their own functions, access the form directly through the ngModel names

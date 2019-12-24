@@ -1,5 +1,6 @@
 <mat-card>
-    <form (submit)="onSavePost(postForm)" #postForm="ngForm"> <!-- Here is where the submit function from the button goes for when the FORM is submitted 
+    <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
+    <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading"> <!-- Here is where the submit function from the button goes for when the FORM is submitted 
                                     add local reference #postForm-- gives us access to the form object angular created for us
                                     then pass postForm as an argument to onAddPost --> 
         <mat-form-field>
