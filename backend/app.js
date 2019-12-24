@@ -60,7 +60,7 @@ app.use((request, response, next) => {
 });
 
 //make app aware of post routes from posts.js
-//      vv filter for requests going to this 
+//      vv filter for requests going to this; don't have to include it in argument in each post router if it's done this way
 app.use("/api/posts", postsRoutes);
 
 //export this app
