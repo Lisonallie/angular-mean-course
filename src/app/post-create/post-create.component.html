@@ -7,7 +7,7 @@
             matInput 
             type="text"
             name="title" 
-            [ngModel]="post.title"
+            [ngModel]="post?.title"
             required
             minlength="3"
             placeholder="Enter a title"
@@ -25,7 +25,7 @@
             matInput 
             rows="6"
             name="content" 
-            [ngModel]="post.content"
+            [ngModel]="post?.content"
             required
             placeholder="Enter a post"
             #content="ngModel"></textarea> <!-- required causes this field to have to be filled in when the form is submitted in order to be submitted. -->
