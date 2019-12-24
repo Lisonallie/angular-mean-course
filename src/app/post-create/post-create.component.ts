@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms'; //removed NgForm from import
 import { PostsService } from '../posts.service';
 import { ActivatedRoute } from '@angular/router';
 import { ParamMap } from '@angular/router';
@@ -28,6 +28,15 @@ export class PostCreateComponent implements OnInit {
   constructor(public postsService: PostsService, public route: ActivatedRoute) {} //making it public lets you not have to make a bunch of other declarations to let angular know it's there and being used.
 
   ngOnInit() {
+    this.form = new FormGroup({
+      //good practice to wrap in single quotations
+      //                       vv 1st argument is the beginning form (default) state: null for empty 
+      //                              vv 2nd allows us to attach validators or general form control options/ js object w/ synchronous & asynchronous validators
+      //                                          vv can set 2nd argument here called blur which only checks validation upon un-focusing of element
+      //                                                            vv no execution required, (), angular executes it for you
+      //                                                                                    vv need to execute this to configure the length
+      'title': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]})
+    })
     //find whether we have a postId parameter or not
     this.route.paramMap
     .subscribe((paramMap: ParamMap) => {
