@@ -18,6 +18,7 @@ export class PostCreateComponent implements OnInit {
   private postId: string;
   //if it's pulic like below, can access it from within the template
   post: Post;
+  isLoading = false;
   // this says it's going to output an event (postCreated)
                                         //Adding Post here tells what type of data it's going to emit.(will be a Post)
                                         //removed @Output as it won't be needed anymore
@@ -34,9 +35,11 @@ export class PostCreateComponent implements OnInit {
       if (paramMap.has('postId')) {
         this.mode = "edit";
         this.postId = paramMap.get('postId');
+        //show spinner when start fetching
         //taking this post and storing it
         this.postsService.getPost(this.postId)
           .subscribe(postData => {
+            //hide spinner when done fetching
             //                        vv post data coming from database
             this.post = {id: postData._id, title: postData.title, content: postData.content};
           });
