@@ -50,6 +50,7 @@ export class PostsService {
 
   getPost(id: string) {
     //pull out all the properties of an object & add them to a new object
+    //                        vv executed on every post in the array, check if the post we're looking at has the same id as our id: string we're passing as an argument
     return {...this.posts.find(post => post.id === id)};
   }
 

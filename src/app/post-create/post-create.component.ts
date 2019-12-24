@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { PostsService } from '../posts.service';
 import { ActivatedRoute } from '@angular/router';
 import { ParamMap } from '@angular/router';
+import { Post } from '../post.model';
 
 @Component({
   selector: 'app-post-create',
@@ -15,6 +16,7 @@ export class PostCreateComponent implements OnInit {
   //private property
   private mode = 'create';
   private postId: string;
+  private post: Post;
   // this says it's going to output an event (postCreated)
                                         //Adding Post here tells what type of data it's going to emit.(will be a Post)
                                         //removed @Output as it won't be needed anymore
@@ -31,6 +33,8 @@ export class PostCreateComponent implements OnInit {
       if (paramMap.has('postId')) {
         this.mode = "edit";
         this.postId = paramMap.get('postId');
+        //taking this post and storing it
+        this.post = this.postsService.getPost(this.postId);
       } else {
         this.mode = 'create';
         this.postId = null;
