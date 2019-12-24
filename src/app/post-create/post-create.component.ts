@@ -71,7 +71,11 @@ export class PostCreateComponent implements OnInit {
 
   onImageChosen(event: Event) { //Event is a default type you dont have to import
     const file = (event.target as HTMLInputElement).files[0] //as ... does a typescript conversion and clearly tells TS that the file is that sort of type w/ files property
-    
+    //        vv allows you to target a single formcontrol
+    this.form.patchValue({image: file});
+    // informs angular that I changed the value and it should reevaluate and store that value internally and check whether the value that's been patched is valid
+    this.form.get('image').updateValueAndValidity();
+    console.log(file, this.form);
   }
 
   //onSavePost(form: NgForm) no longer valid because we no longer pass the form as an argument---we have our own form object^^^
