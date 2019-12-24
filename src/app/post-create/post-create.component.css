@@ -11,3 +11,7 @@ mat-spinner {
 input[type="file"] {
     visibility: hidden;
 }
+
+.image-button {
+    margin-bottom: 20px;
+}
