@@ -35,8 +35,9 @@ export class PostCreateComponent implements OnInit {
       //                                          vv can set 2nd argument here called blur which only checks validation upon un-focusing of element
       //                                                            vv no execution required, (), angular executes it for you
       //                                                                                    vv need to execute this to configure the length
-      'title': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]})
-    })
+      'title': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
+      'content': new FormControl(null, {validators: [Validators.required]})
+    });
     //find whether we have a postId parameter or not
     this.route.paramMap
     .subscribe((paramMap: ParamMap) => {
