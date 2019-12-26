@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
     }
     //      vvv if it gets an error
     //              vv where to store images, this path is seen relative to your server.js file
-    callback(null, "backend/images");
+    callback(error, "backend/images");
   },
   //filename
   filename: (request, file, callback) => {
@@ -57,21 +57,21 @@ router.post("", multer({storage: storage}).single("image"), (request, response, 
   //save method provided by mongoose package for every model created with it
   //automatically created the right query for the database & injects it into db
   // name of collection always the plural name of your model name. in our case: Post so it's posts. mongoose does it for you
-  post.save();
-  //typical status code for everything is ok, new resource was created
-  response.status(201).json({
-    message: "post added",
-    post: {
-      //old code
-      // id: createdPost._id,
-      // title: createdPost.title,
-      // content: createdPost.content,
-      // imagePath: createdPost.imagePath
-      //same thing vvvvv
-      ...createdPost,
-      id: createdPost._id
-    }
+  post.save().then(createdPost => {
+    response.status(201).json({
+      message: "post added",
+      post: {
+        id: createdPost._id,
+        title: createdPost.title,
+        content: createdPost.content,
+        imagePath: createdPost.imagePath
+        //same thing vvvvv
+        // ...createdPost,
+        // id: createdPost._id
+      }
+    });
   });
+  //typical status code for everything is ok, new resource was created
   //can't add next() here because we are already sending a response so would get an error
 });
 
