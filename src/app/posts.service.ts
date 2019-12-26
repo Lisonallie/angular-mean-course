@@ -86,16 +86,17 @@ export class PostsService {
   }
 
   updatePost(id: string, title: string, content: string, image: File | string) {
+    let postData: Post | FormData;
     // old code     const post: Post = { id: id, title: title, content: content, imagePath: null };
     if (typeof(image) === 'object') {
-      const postData = new FormData();
+      postData = new FormData();
       postData.append("title", title),
       postData.append("content", content),
       postData.append("image", image, title)
     } else {
-      const postData: Post = { id: id, title: title, content: content, imagePath: image}
+      postData = { id: id, title: title, content: content, imagePath: image}
     }
-    this.http.patch("http://localhost:3000/api/posts/" + id, post)
+    this.http.patch("http://localhost:3000/api/posts/" + id, postData)
       .subscribe(response => {
         //locally update the posts once you have the successful response
         //clone post array and store it in this constant
@@ -103,8 +104,10 @@ export class PostsService {
         //vvthis doesn't work because we never visit the post list array so there is nothing to updatevv
         //Search for old post version by its' id
         //                                  vv returns true if we found the post we're looking for
-        const oldPostIndex = updatedPosts.findIndex(posts => posts.id === post.id);
+        const oldPostIndex = updatedPosts.findIndex(posts => posts.id === id);
         //found index of post I want to replace
+        //later: create post for here 
+        const post: Post = { id: id, title: title, content: content, imagePath: response.imagePath};
         updatedPosts[oldPostIndex] = post;
         //immutable way of updating the old post
         this.posts = updatedPosts;
