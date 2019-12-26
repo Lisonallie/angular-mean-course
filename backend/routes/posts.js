@@ -81,7 +81,7 @@ router.patch("/:id", multer({storage: storage}).single("image"), (request, respo
   let imagePath = request.body.imagePath;
   if (request.file) {
     const url = request.protocol + '://' + request.get('host');
-    imagePath = url + "/images/" / request.file.filename;
+    imagePath = url + "/images/" + request.file.filename;
   }
   const post = new Post({
     //need _id or it tries to make a new post with a new id
