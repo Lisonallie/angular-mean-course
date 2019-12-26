@@ -13,6 +13,13 @@ const MIME_TYPE_MAP = {
 const storage = multer.diskStorage({
   //destination is a function which will be executed whenever multer tries to save a file
   destination: (request, file, callback) => {
+    //throw error if one of the mimetypes is not what's entered
+    //shoudl return null if we get a mimetype that's not part of this map
+    const isValid = MIME_TYPE_MAP[file.mimetype];
+    let error = new Error('Invalid file extension');
+    if (isValid) {
+      error = null;
+    }
     //      vvv if it gets an error
     //              vv where to store images, this path is seen relative to your server.js file
     callback(null, "backend/images");
