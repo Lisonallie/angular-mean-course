@@ -58,7 +58,7 @@ export class PostsService {
     // old code --> return {...this.posts.find(post => post.id === id)};
   }
 
-  addPost(title: string, content: string, image?: File) {
+  addPost(title: string, content: string, image: File) {
     //instead of sending json back, will send form data
     const postData = new FormData();
     postData.append("title", title);

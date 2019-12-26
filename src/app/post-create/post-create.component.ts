@@ -42,7 +42,7 @@ export class PostCreateComponent implements OnInit {
         {validators: [Validators.required], 
           //TS differentiates between async & regular validators
         asyncValidators: [mimeType]}),
-      'image': new FormControl(null)
+      'image': new FormControl(null, {validators: [Validators.required]})
     });
     //find whether we have a postId parameter or not
     this.route.paramMap
