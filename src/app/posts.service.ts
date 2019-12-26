@@ -57,12 +57,21 @@ export class PostsService {
     // old code --> return {...this.posts.find(post => post.id === id)};
   }
 
-  addPost(title: string, content: string) {
-    const post: Post = { id: null, title: title, content: content};
+  addPost(title: string, content: string, image: File) {
+    //instead of sending json back, will send form data
+    const postData = new FormData();
+    postData.append("title", title);
+    postData.append("content", content);
+    //              pass image string, image object, and 3rd identify filename by image title which has been passed in the backend
+    postData.append("image", image, title);
+
+    // Old code:   const post: Post = { id: null, title: title, content: content};
+
     //Store it on the server (optimistic updating) updating local data before we have serverside communication that it's succeeded
     //                                                                         vvv need to subscribe to the response or it does nothing
-    this.http.post<{message: string}>("http://localhost:3000/api/posts", post).subscribe((responseData) => {
+    this.http.post<{ message: string; postId: string }>("http://localhost:3000/api/posts", postData).subscribe((responseData) => {
       console.log(responseData.message);
+      const post: Post = {id: responseData.postId, title: title, content: content};
       this.posts.push(post);
       this.postsUpdated.next([...this.posts]);
       //after done subscribing, reach out to router & navigater
