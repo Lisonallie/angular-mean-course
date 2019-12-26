@@ -64,7 +64,8 @@ export class PostCreateComponent implements OnInit {
             //override values for form control that were previously registerd(null)
             this.form.setValue({
               'title': this.post.title, 
-            'content': this.post.content
+            'content': this.post.content,
+            'image': this.post.imagePath
           });
           });
       } else {
