@@ -39,10 +39,10 @@ export class PostCreateComponent implements OnInit {
       //                                                                                    vv need to execute this to configure the length
       'title': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
       'content': new FormControl(null, 
-        {validators: [Validators.required], 
-          //TS differentiates between async & regular validators
-        asyncValidators: [mimeType]}),
-      'image': new FormControl(null, {validators: [Validators.required]})
+        {validators: [Validators.required]}),
+      'image': new FormControl(null, {validators: [Validators.required], 
+        //TS differentiates between async & regular validators
+      asyncValidators: [mimeType]})
     });
     //find whether we have a postId parameter or not
     this.route.paramMap
