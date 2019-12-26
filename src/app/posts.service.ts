@@ -31,7 +31,8 @@ export class PostsService {
           return {
             title: post.title,
             content: post.content,
-            id: post._id
+            id: post._id,
+            imagePath: post.imagePath
           };
         });
       }))
@@ -57,7 +58,7 @@ export class PostsService {
     // old code --> return {...this.posts.find(post => post.id === id)};
   }
 
-  addPost(title: string, content: string, image: File) {
+  addPost(title: string, content: string, image?: File) {
     //instead of sending json back, will send form data
     const postData = new FormData();
     postData.append("title", title);
@@ -69,9 +70,9 @@ export class PostsService {
 
     //Store it on the server (optimistic updating) updating local data before we have serverside communication that it's succeeded
     //                                                                         vvv need to subscribe to the response or it does nothing
-    this.http.post<{ message: string; postId: string }>("http://localhost:3000/api/posts", postData).subscribe((responseData) => {
+    this.http.post<{ message: string; post: Post }>("http://localhost:3000/api/posts", postData).subscribe((responseData) => {
       console.log(responseData.message);
-      const post: Post = {id: responseData.postId, title: title, content: content};
+      const post: Post = {id: responseData.post.id, title: title, content: content, imagePath: responseData.post.imagePath};
       this.posts.push(post);
       this.postsUpdated.next([...this.posts]);
       //after done subscribing, reach out to router & navigater
@@ -85,7 +86,7 @@ export class PostsService {
   }
 
   updatePost(id: string, title: string, content: string) {
-    const post: Post = { id: id, title: title, content: content };
+    const post: Post = { id: id, title: title, content: content, imagePath: null };
     this.http.patch("http://localhost:3000/api/posts/" + id, post)
       .subscribe(response => {
         //locally update the posts once you have the successful response

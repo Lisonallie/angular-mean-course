@@ -46,9 +46,13 @@ router.post("", multer({storage: storage}).single("image"), (request, response, 
   //posts have a request body so they have data attached to them --install extra package which is convenience middleware which automatically extracts incoming request data & adds it to a new field on that request object where we can conveniently access it
   //node express package, parses incoming request bodies, extracts the request data stream & converts it to data object we can use, then re-adds it on a special property to the request object.
   // old code: const post = request.body;
+  //                  vv assesses whether accessing the server with http or https
+  const url = request.protocol + '://' + request.get('host');
   const post = new Post({
     title: request.body.title,
-    content: request.body.content
+    content: request.body.content,
+    //                                    vv provided by multer
+    imagePath: url + "/images/" + request.file.filename
   });
   //save method provided by mongoose package for every model created with it
   //automatically created the right query for the database & injects it into db
@@ -56,7 +60,17 @@ router.post("", multer({storage: storage}).single("image"), (request, response, 
   post.save();
   //typical status code for everything is ok, new resource was created
   response.status(201).json({
-    message: "post added"
+    message: "post added",
+    post: {
+      //old code
+      // id: createdPost._id,
+      // title: createdPost.title,
+      // content: createdPost.content,
+      // imagePath: createdPost.imagePath
+      //same thing vvvvv
+      ...createdPost,
+      id: createdPost._id
+    }
   });
   //can't add next() here because we are already sending a response so would get an error
 });
@@ -86,6 +100,7 @@ router.get("", (request, response, next) => {
     //can send posts or a more complicated method::
     response.status(200).json({
       message: "posts fetched successfully!",
+      // documents are the items from database
       posts: documents
     });
   });

@@ -1,3 +1,5 @@
+const path = require('path');
+
 const express = require("express");
 
 const bodyParser = require("body-parser");
@@ -38,6 +40,11 @@ app.use(bodyParser.json());
 
 //parses a different kind of body
 app.use(bodyParser.urlencoded({ extended: false }));
+//need to grant access to the images folder in the backend, by default the folders are not accessible and not static
+//      vv apply only to requests with this url, will be allowed to continue & fetch that url
+//but this won't work because the images are actually stored in the backend folder
+//                                vvvvvvvvvvv so this makes that any requests going to /images are forwarded to backend/images
+app.use("/images", express.static(path.join("backend/images")));
 
 //one additional middleware that adds CORS header
 app.use((request, response, next) => {

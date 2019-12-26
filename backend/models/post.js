@@ -6,7 +6,8 @@ const postSchema = mongoose.Schema({
     //title: String
     //add more information:
     title: { type: String, required: true }, //find more specifications in mongoose docs
-    content: { type: String, required: true }
+    content: { type: String, required: true },
+    imagePath: { type: String, required: true }
 });
 
 //mongoose needs a model to work with it

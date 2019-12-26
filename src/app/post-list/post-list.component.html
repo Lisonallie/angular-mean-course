@@ -4,6 +4,9 @@
         <mat-expansion-panel-header>
             {{ post.title }} <!-- like in the ts file where we declared title  -->
         </mat-expansion-panel-header>
+        <div class="post-image" *ngIf="post.imagePath">
+            <img [src]="post.imagePath" [alt]="post.title">
+        </div>
                 <p>
                     {{ post.content }} <!-- like in the ts file where we declared content  -->
                 </p>

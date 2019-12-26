@@ -60,7 +60,7 @@ export class PostCreateComponent implements OnInit {
             //hide spinner when done fetching
             this.isLoading = false;
             //                        vv post data coming from database
-            this.post = {id: postData._id, title: postData.title, content: postData.content};
+            this.post = {id: postData._id, title: postData.title, content: postData.content, imagePath: null};
             //override values for form control that were previously registerd(null)
             this.form.setValue({
               'title': this.post.title, 
