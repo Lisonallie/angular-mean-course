@@ -1,5 +1,5 @@
 import { AbstractControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Observer } from 'rxjs';
 
 //because it's an asynchronous validator, have to vvvv define special return type: either a promise or an observable
 //if a validator return null, it is valid. null is valid
@@ -10,5 +10,14 @@ export const mimeType = (control: AbstractControl): Promise<{ [key: string]: any
     const fileReader = new FileReader();
     //we need onloadend not onload
     //create our own observable because that's what needs to be returned by function:
-    const frObs = Observable.create(observer: Observer) => {};
-}
+    //frObs = file reader observable
+    //                                          vv Observer is a generic type
+    const frObs = Observable.create((observer: Observer<{ [key: string]: any }>) => {
+        fileReader.addEventListener("loadend", () => {
+            //emit new value with information if the file is valid or not
+            
+        });
+        //start process, allows us to access the mime type
+        fileReader.readAsArrayBuffer(file);
+    });
+};
