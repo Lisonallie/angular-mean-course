@@ -1,59 +1,73 @@
 <mat-card>
-    <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
-     <!-- vv tell angular hey formGroup is a form I created in typescript, it's this form  -->
-    <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading"> 
-        <!-- Here is where the submit function from the button goes for when the FORM is submitted 
+  <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
+  <!-- vv tell angular hey formGroup is a form I created in typescript, it's this form  -->
+  <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
+    <!-- Here is where the submit function from the button goes for when the FORM is submitted 
                                     add local reference #postForm-- gives us access to the form object angular created for us
                                     then pass postForm as an argument to onAddPost  -->
-                                    <!-- #postForm="ngForm"
+    <!-- #postForm="ngForm"
                                         (submit)="onSavePost(postForm)" -->
-        <mat-form-field>
-            <input 
-            matInput 
-            type="text"
-            formControlName = "title"
-            placeholder="Enter a title"> 
-            <!-- formControlName = "title" adds a reference for the form, name is exactly the same as in the form object created
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        formControlName="title"
+        placeholder="Enter a title"
+      />
+      <!-- formControlName = "title" adds a reference for the form, name is exactly the same as in the form object created
                 [ngModel]="post.title" is one-way binding
                 When you add the <form> above, the ngModel no longer needs to be told which element to bind to, but needs a name.
                     [(ngModel)]="enteredTitle" two way binding, also with enteredContent below. get user input. 
                     Now add HTML5 built-in validators to make sure the text that is entered is kosher
                     #title adds a local reference for the error message below -->
-                    <!-- [ngModel]="post?.title"
+      <!-- [ngModel]="post?.title"
                         #title="ngModel"
                         required
                         minlength="3"
                         name="title" -->
-            <mat-error *ngIf="form.get('title').invalid">
-                Please enter a post title.
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <textarea 
-            matInput 
-            rows="6"
-            formControlName="content"
-            placeholder="Enter a post"></textarea> 
-            <!-- required causes this field to have to be filled in when the form is submitted in order to be submitted. -->
-            <!-- [ngModel]="post?.content"
+      <mat-error *ngIf="form.get('title').invalid">
+        Please enter a post title.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        matInput
+        rows="6"
+        formControlName="content"
+        placeholder="Enter a post"
+      ></textarea>
+      <!-- required causes this field to have to be filled in when the form is submitted in order to be submitted. -->
+      <!-- [ngModel]="post?.content"
                 #content="ngModel"
                 required
                 name="content" -->
-            <mat-error *ngIf="form.get('content').invalid">
-                Please enter post content.
-            </mat-error>
-        </mat-form-field>
-            <div>
-                <button class="image-button" mat-stroked-button type="button" (click)="filePicker.click()">Choose Image</button>
-                               <!-- vv add this local reference so you can reference it here ^^^ -->
-                <input type="file" #filePicker (change)="onImageChosen($event)">
-                <!--                                                    ^^ special variable provided by angular to access the event object in question -->
-            </div>
-            <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview"> <!-- ngif = if it's not equal to an empty string & if it exists -->
-                <img [src]="imagePreview" [alt]="form.value.title"> <!-- need to bind attributes so you can access the 'deeper level/ts file stuff' attribute. -->
-            </div>
-        <button mat-raised-button color="primary" type="submit">Save Post</button>
-        <!-- (click)="onAddPost() don't want to use this anymore because the button knows now that it's going
+      <mat-error *ngIf="form.get('content').invalid">
+        Please enter post content.
+      </mat-error>
+    </mat-form-field>
+    <div class="oneline">
+      <div>
+        <button
+          class="image-button"
+          mat-stroked-button
+          type="button"
+          (click)="filePicker.click()"
+        >
+          Choose Image
+        </button>
+        <!-- vv add this local reference so you can reference it here ^^^ -->
+        <input type="file" #filePicker (change)="onImageChosen($event)" />
+        <!--                                                    ^^ special variable provided by angular to access the event object in question -->
+      </div>
+      <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
+        <!-- ngif = if it's not equal to an empty string & if it exists -->
+        <img [src]="imagePreview" [alt]="form.value.title" />
+        <!-- need to bind attributes so you can access the 'deeper level/ts file stuff' attribute. -->
+      </div>
+    </div>
+    <br />
+    <button mat-raised-button color="primary" type="submit">Save Post</button>
+    <!-- (click)="onAddPost() don't want to use this anymore because the button knows now that it's going
         to be connected to the form. Now need to give it a type submit. -->
-    </form>
+  </form>
 </mat-card>
