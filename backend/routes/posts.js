@@ -4,12 +4,26 @@ const multer = require('multer');
 const router = express.Router();
 const Post = require("../models/post");
 
+const MIME_TYPE_MAP = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/jpg': 'jpg'
+}
+
 const storage = multer.diskStorage({
   //destination is a function which will be executed whenever multer tries to save a file
   destination: (request, file, callback) => {
     //      vvv if it gets an error
     //              vv where to store images, this path is seen relative to your server.js file
     callback(null, "backend/images");
+  },
+  //filename
+  filename: (request, file, callback) => {
+    //                          vv normalize this to get one name file, remove spaces replace by dashes
+    const name = file.originalname.toLowerCase().split(' ').join('-');
+    //                      vv get the extension matching the specified expected extensions
+    //multer automatically gives us the mimetpe
+    const extension = MIME_TYPE_MAP[file.mimetype];
   }
 });
 
