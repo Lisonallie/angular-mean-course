@@ -1,7 +1,17 @@
 const express = require("express");
+const multer = require('multer');
 
 const router = express.Router();
 const Post = require("../models/post");
+
+const storage = multer.diskStorage({
+  //destination is a function which will be executed whenever multer tries to save a file
+  destination: (request, file, callback) => {
+    //      vvv if it gets an error
+    //              vv where to store images, this path is seen relative to your server.js file
+    callback(null, "backend/images");
+  }
+});
 
 //ataches a middleware triggered for incoming post requests
 router.post("", (request, response, next) => {
