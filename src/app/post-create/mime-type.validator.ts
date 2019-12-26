@@ -19,13 +19,29 @@ export const mimeType = (control: AbstractControl): Promise<{ [key: string]: any
             //                                                              vvv this is the part which allows us to get the mime type
             const array = new Uint8Array(fileReader.result as ArrayBuffer).subarray(0, 4);
             let header = "";
+            let isValid = false;
             // to get the file type we're working with, we need to read a certain pattern; done with a for loop
             for (let i = 0; i < array.length; i++) {
                 //                         vv pass 16 as argument to convert this result to a hexidecimal string
                 header += array[i].toString(16);
             }
             //building strings of hexidecimals with clearly defined patters for each file type
-            
+            switch (header) {
+                //these patterns stand for certain file types
+                case "89504e47":
+                    isValid = true;
+                    break;
+                case "ffd8ffe0":
+                case "ffd8ffe1":
+                case "ffd8ffe2":
+                case "ffd8ffe3":
+                case "ffd8ffe8":
+                    isValid = true;
+                    break;
+                default:
+                    isValid = false;
+                    break;
+            }
         });
         //start process, allows us to access the mime type
         fileReader.readAsArrayBuffer(file);
