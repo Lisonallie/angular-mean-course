@@ -40,7 +40,7 @@ const storage = multer.diskStorage({
 //ataches a middleware triggered for incoming post requests
 //can add extra middleware before the function is executed
 //              vv multer will extract a single file from the incoming request & try to find it on an image property in the request body.
-router.post("", multer(storage).single("image"), (request, response, next) => {
+router.post("", multer({storage: storage}).single("image"), (request, response, next) => {
   //store posts from database here
   //check if getting data to that route works
   //posts have a request body so they have data attached to them --install extra package which is convenience middleware which automatically extracts incoming request data & adds it to a new field on that request object where we can conveniently access it
