@@ -24,6 +24,8 @@ const storage = multer.diskStorage({
     //                      vv get the extension matching the specified expected extensions
     //multer automatically gives us the mimetpe
     const extension = MIME_TYPE_MAP[file.mimetype];
+    //                         vvv current timestamp
+    callback(null, name +'-' + Date.now() + '.' + extension);
   }
 });
 
