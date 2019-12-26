@@ -85,8 +85,9 @@ export class PostsService {
     // this.postsUpdated.next([...this.posts]); //emits a new value(copy of array)
   }
 
-  updatePost(id: string, title: string, content: string) {
-    const post: Post = { id: id, title: title, content: content, imagePath: null };
+  updatePost(id: string, title: string, content: string, image: File | string) {
+    // old code     const post: Post = { id: id, title: title, content: content, imagePath: null };
+    
     this.http.patch("http://localhost:3000/api/posts/" + id, post)
       .subscribe(response => {
         //locally update the posts once you have the successful response

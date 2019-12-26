@@ -105,7 +105,7 @@ export class PostCreateComponent implements OnInit {
                                 //These new declarations instead of giving the inputs their own functions, access the form directly through the ngModel names
       this.postsService.addPost(this.form.value.title, this.form.value.content, this.form.value.image);
     } else {
-      this.postsService.updatePost(this.postId, this.form.value.title, this.form.value.content);
+      this.postsService.updatePost(this.postId, this.form.value.title, this.form.value.content, this.form.value.image);
     }
                               // this.postCreated.emit(post);  important to bind post as argument to it so it will output the title and content.
     this.form.reset(); //resets the form values after it's been submitted
