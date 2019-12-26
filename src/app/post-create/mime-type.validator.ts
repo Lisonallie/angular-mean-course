@@ -15,7 +15,8 @@ export const mimeType = (control: AbstractControl): Promise<{ [key: string]: any
     const frObs = Observable.create((observer: Observer<{ [key: string]: any }>) => {
         fileReader.addEventListener("loadend", () => {
             //emit new value with information if the file is valid or not
-            
+            //                vvv creates new array of 8-bit unside integers, allows us to read certain patterns that we can use to parse the mime type
+            const array = new Uint8Array
         });
         //start process, allows us to access the mime type
         fileReader.readAsArrayBuffer(file);
