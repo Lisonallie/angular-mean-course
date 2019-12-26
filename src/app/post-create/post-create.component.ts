@@ -38,7 +38,10 @@ export class PostCreateComponent implements OnInit {
       //                                                            vv no execution required, (), angular executes it for you
       //                                                                                    vv need to execute this to configure the length
       'title': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
-      'content': new FormControl(null, {validators: [Validators.required]}),
+      'content': new FormControl(null, 
+        {validators: [Validators.required], 
+          //TS differentiates between async & regular validators
+        asyncValidators: [mimeType]}),
       'image': new FormControl(null)
     });
     //find whether we have a postId parameter or not
