@@ -87,7 +87,14 @@ export class PostsService {
 
   updatePost(id: string, title: string, content: string, image: File | string) {
     // old code     const post: Post = { id: id, title: title, content: content, imagePath: null };
-    
+    if (typeof(image) === 'object') {
+      const postData = new FormData();
+      postData.append("title", title),
+      postData.append("content", content),
+      postData.append("image", image, title)
+    } else {
+
+    }
     this.http.patch("http://localhost:3000/api/posts/" + id, post)
       .subscribe(response => {
         //locally update the posts once you have the successful response
