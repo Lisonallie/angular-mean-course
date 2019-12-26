@@ -42,8 +42,20 @@ export const mimeType = (control: AbstractControl): Promise<{ [key: string]: any
                     isValid = false;
                     break;
             }
+            //now need to use observable to emit data
+            if (isValid) {
+                //have to emit null if it's valid
+                observer.next(null);
+            } else {
+                //if not valid, emit different value: error code
+                observer.next({ invalidMimeType: true })
+            }
+            //let subscribers know we're done
+            observer.complete();
         });
         //start process, allows us to access the mime type
         fileReader.readAsArrayBuffer(file);
     });
+    //return the observable we created
+    return frObs;
 };
