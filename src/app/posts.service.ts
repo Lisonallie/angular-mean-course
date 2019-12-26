@@ -54,7 +54,7 @@ export class PostsService {
   getPost(id: string) {
     //pull out all the properties of an object & add them to a new object
     //                        vv executed on every post in the array, check if the post we're looking at has the same id as our id: string we're passing as an argument
-    return this.http.get<{_id: string, title: string, content: string}>("http://localhost:3000/api/posts/" + id);
+    return this.http.get<{_id: string, title: string, content: string, imagePath: string}>("http://localhost:3000/api/posts/" + id);
     // old code --> return {...this.posts.find(post => post.id === id)};
   }
 
@@ -90,6 +90,7 @@ export class PostsService {
     // old code     const post: Post = { id: id, title: title, content: content, imagePath: null };
     if (typeof(image) === 'object') {
       postData = new FormData();
+      postData.append("id", id);
       postData.append("title", title),
       postData.append("content", content),
       postData.append("image", image, title)
@@ -107,7 +108,7 @@ export class PostsService {
         const oldPostIndex = updatedPosts.findIndex(posts => posts.id === id);
         //found index of post I want to replace
         //later: create post for here 
-        const post: Post = { id: id, title: title, content: content, imagePath: response.imagePath};
+        const post: Post = { id: id, title: title, content: content, imagePath: ""};
         updatedPosts[oldPostIndex] = post;
         //immutable way of updating the old post
         this.posts = updatedPosts;

@@ -76,12 +76,19 @@ router.post("", multer({storage: storage}).single("image"), (request, response, 
 });
 
 //router.patch updates exisiting resource with new values, put replaces completely
-router.patch("/:id", (request, response, next) => {
+router.patch("/:id", multer({storage: storage}).single("image"), (request, response, next) => {
+  console.log(request.file);
+  let imagePath = request.body.imagePath;
+  if (request.file) {
+    const url = request.protocol + '://' + request.get('host');
+    imagePath = url + "/images/" / request.file.filename;
+  }
   const post = new Post({
     //need _id or it tries to make a new post with a new id
     _id: request.body.id,
     title: request.body.title,
-    content: request.body.content
+    content: request.body.content,
+    imagePath: imagePath
   });
   //Post capital is post model
   //               vv with underscore because it's still stored that way in the database and we're in the backend
