@@ -77,7 +77,15 @@ export class PostCreateComponent implements OnInit {
     // informs angular that I changed the value and it should reevaluate and store that value internally and check whether the value that's been patched is valid
     this.form.get('image').updateValueAndValidity();
     //convert my image to a data-URL, url that can be used by the normal image tag
-    
+    // filereader is built-in to angular for reading files
+    const reader = new FileReader();
+    //asynchronous
+    reader.onload = () => {
+      //something it should do when it's done reading a file
+      this.imagePreview = reader.result as string; //adding as string here fixes error of TS not knowing which type to use
+    };
+    //instruct it to load that file
+    reader.readAsDataURL(file);
   }
 
   //onSavePost(form: NgForm) no longer valid because we no longer pass the form as an argument---we have our own form object^^^

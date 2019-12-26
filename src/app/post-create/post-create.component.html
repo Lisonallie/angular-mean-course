@@ -49,6 +49,9 @@
                 <input type="file" #filePicker (change)="onImageChosen($event)">
                 <!--                                                    ^^ special variable provided by angular to access the event object in question -->
             </div>
+            <div class="image-preview" *ngIf="imagePreview !-- '' && imagePreview"> <!-- ngif = if it's not equal to an empty string & if it exists -->
+                <img src="" [alt]="form.value.title">
+            </div>
         <button mat-raised-button color="primary" type="submit">Save Post</button>
         <!-- (click)="onAddPost() don't want to use this anymore because the button knows now that it's going
         to be connected to the form. Now need to give it a type submit. -->
