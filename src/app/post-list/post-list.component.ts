@@ -13,6 +13,8 @@ export class PostListComponent implements OnInit, OnDestroy {
                 //add type post here to specify it's a post.
   private postsSub: Subscription;
   isLoading = false;
+  totalPosts = 10;
+  postsPerPage = 2;
 
   constructor(public postsService: PostsService) { //public keyword automatically creates a new property in this component & stores the incoming value in that property
     
