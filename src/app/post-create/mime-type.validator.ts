@@ -16,7 +16,16 @@ export const mimeType = (control: AbstractControl): Promise<{ [key: string]: any
         fileReader.addEventListener("loadend", () => {
             //emit new value with information if the file is valid or not
             //                vvv creates new array of 8-bit unside integers, allows us to read certain patterns that we can use to parse the mime type
-            const array = new Uint8Array
+            //                                                              vvv this is the part which allows us to get the mime type
+            const array = new Uint8Array(fileReader.result as ArrayBuffer).subarray(0, 4);
+            let header = "";
+            // to get the file type we're working with, we need to read a certain pattern; done with a for loop
+            for (let i = 0; i < array.length; i++) {
+                //                         vv pass 16 as argument to convert this result to a hexidecimal string
+                header += array[i].toString(16);
+            }
+            //building strings of hexidecimals with clearly defined patters for each file type
+            
         });
         //start process, allows us to access the mime type
         fileReader.readAsArrayBuffer(file);
