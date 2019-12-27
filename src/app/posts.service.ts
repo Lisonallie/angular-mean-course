@@ -74,10 +74,12 @@ export class PostsService {
     //Store it on the server (optimistic updating) updating local data before we have serverside communication that it's succeeded
     //                                                                         vvv need to subscribe to the response or it does nothing
     this.http.post<{ message: string; post: Post }>("http://localhost:3000/api/posts", postData).subscribe((responseData) => {
-      console.log(responseData.message);
-      const post: Post = {id: responseData.post.id, title: title, content: content, imagePath: responseData.post.imagePath};
-      this.posts.push(post);
-      this.postsUpdated.next([...this.posts]);
+      // old code vvv only need to keep the route navigation because in the post-list component we already get all this information  
+      
+    // console.log(responseData.message);
+      // const post: Post = {id: responseData.post.id, title: title, content: content, imagePath: responseData.post.imagePath};
+      // this.posts.push(post);
+      // this.postsUpdated.next([...this.posts]);
       //after done subscribing, reach out to router & navigater
       this.router.navigate(["/"]);
     });
@@ -102,37 +104,42 @@ export class PostsService {
     }
     this.http.patch("http://localhost:3000/api/posts/" + id, postData)
       .subscribe(response => {
+        // old code vvv only need to keep the route navigation because in the post-list component we already get all this information
+
         //locally update the posts once you have the successful response
         //clone post array and store it in this constant
-        const updatedPosts = [...this.posts];
-        //vvthis doesn't work because we never visit the post list array so there is nothing to updatevv
-        //Search for old post version by its' id
-        //                                  vv returns true if we found the post we're looking for
-        const oldPostIndex = updatedPosts.findIndex(posts => posts.id === id);
-        //found index of post I want to replace
-        //later: create post for here 
-        const post: Post = { id: id, title: title, content: content, imagePath: ""};
-        updatedPosts[oldPostIndex] = post;
-        //immutable way of updating the old post
-        this.posts = updatedPosts;
-        //send copy of updatedPosts with it
-        this.postsUpdated.next([...this.posts]);
+        // const updatedPosts = [...this.posts];
+        // //vvthis doesn't work because we never visit the post list array so there is nothing to updatevv
+        // //Search for old post version by its' id
+        // //                                  vv returns true if we found the post we're looking for
+        // const oldPostIndex = updatedPosts.findIndex(posts => posts.id === id);
+        // //found index of post I want to replace
+        // //later: create post for here 
+        // const post: Post = { id: id, title: title, content: content, imagePath: ""};
+        // updatedPosts[oldPostIndex] = post;
+        // //immutable way of updating the old post
+        // this.posts = updatedPosts;
+        // //send copy of updatedPosts with it
+        // this.postsUpdated.next([...this.posts]);
         this.router.navigate(["/"]);
       });
   }
 
   deletePost(postId: string) {
     const confirmation = window.confirm("Are you sure you want to delete this post?");
-    this.http.delete("http://localhost:3000/api/posts/" + postId)
-      .subscribe(() => {
-        if (confirmation === true) {
-          console.log("deleted");
-          const updatedPosts = this.posts.filter(post => post.id !== postId);
-          this.posts = updatedPosts;
-          this.postsUpdated.next([...this.posts]);
-        } else {
-          return;
-        }
-      });
+    //vv added return
+    return this.http.delete("http://localhost:3000/api/posts/" + postId);
+    // old code vvv here we need to re-fetch data now that we're updating posts, need to subscribe in the post-list component
+
+      // .subscribe(() => {
+      //   if (confirmation === true) {
+      //     console.log("deleted");
+      //     const updatedPosts = this.posts.filter(post => post.id !== postId);
+      //     this.posts = updatedPosts;
+      //     this.postsUpdated.next([...this.posts]);
+      //   } else {
+      //     return;
+      //   }
+      // });
   }
 }
