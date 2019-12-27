@@ -106,8 +106,21 @@ router.get("", (request, response, next) => {
   //console.log(request.query);
   const pageSize = request.query.pagesize;
   const currentPage = request.query.page;
+  const postQuery = Post.find();
+  if(pageSize && currentPage) {
+    postQuery
+    //not retrieve all posts but will skip the first end posts
+    //want to not show posts based on which page we are on
+    // if you were on page 2 then you want to skip all items that were displayed on page 1
+    // items displayed on page 1 are: pagesize (2) * (currentpage[2] - 1) = 2 x 1 so we skip 2 items
+      .skip(pageSize * (currentPage - 1))
+      //narrow down the amount of documents we retrieve for the currentpage
+      //limits the amount of documents we return
+      .limit(pageSize);
+  }
   //Want to fetch data from the posts collection
-  Post.find().then(documents => {
+  //old code   Post.find()
+  postQuery.then(documents => {
     //can send posts or a more complicated method::
     response.status(200).json({
       message: "posts fetched successfully!",
