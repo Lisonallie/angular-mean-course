@@ -16,6 +16,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   isLoading = false;
   totalPosts = 10;
   postsPerPage = 2;
+  currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
 
   constructor(public postsService: PostsService) { //public keyword automatically creates a new property in this component & stores the incoming value in that property
@@ -24,7 +25,8 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   ngOnInit() { //lifecycle hook
     this.isLoading = true;
-    this.postsService.getPosts(); //fetching
+    //                                            vv current page
+    this.postsService.getPosts(this.postsPerPage, this.currentPage); //fetching
     this.postsSub = this.postsService.getPostUpdateListener().subscribe((posts: Post[]) => {
       this.isLoading = false;
       this.posts = posts; //updates whenever receives a new value
@@ -38,6 +40,9 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   onChangedPage(pageData: PageEvent) {
     console.log(pageData);
+    this.currentPage = pageData.pageIndex + 1;
+    this.postsPerPage = pageData.pageSize;
+    this.postsService.getPosts(this.postsPerPage, this.currentPage);
   }
   
 
