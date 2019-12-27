@@ -23,25 +23,25 @@ export class PostsService {
     //for observables built in to angular like the http client, the unsubscribe is handled automatically by angular
     //get method here already handles the json format input and outputs javascript
     this.http
-    .get<{id: string, message: string, posts: any}>(
+    .get<{id: string, message: string, posts: any, maxPosts: number}>(
       'http://localhost:3000/api/posts' + queryParams
       )
       //postData is declared here & given a value
       .pipe(map((postData) => {
         //convert any post with map
-        return postData.posts.map(post => {
+        return { posts: postData.posts.map(post => {
           return {
             title: post.title,
             content: post.content,
             id: post._id,
             imagePath: post.imagePath
           };
-        });
+        }), maxPosts: postData.maxPosts};
       }))
-      .subscribe((transformedPosts) => {
+      .subscribe((transformedPostData) => {
       //when we get a response gives access to this response
       //setting the posts to the posts coming from the server
-      this.posts = transformedPosts;
+      this.posts = transformedPostData.posts;
       //inform the other parts of our app about this update
       this.postsUpdated.next([...this.posts]);
     });
