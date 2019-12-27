@@ -104,8 +104,9 @@ router.patch("/:id", multer({storage: storage}).single("image"), (request, respo
 router.get("", (request, response, next) => {
   // w/ query parameters you can add extra info to the end of your url, separated by question mark
   //console.log(request.query);
-  const pageSize = request.query.pagesize;
-  const currentPage = request.query.page;
+  //               vv normally this returns a string but if you add a + it returns a number!!
+  const pageSize = +request.query.pagesize;
+  const currentPage = +request.query.page;
   const postQuery = Post.find();
   if(pageSize && currentPage) {
     postQuery
@@ -116,6 +117,7 @@ router.get("", (request, response, next) => {
       .skip(pageSize * (currentPage - 1))
       //narrow down the amount of documents we retrieve for the currentpage
       //limits the amount of documents we return
+      //limit field must always be numeric
       .limit(pageSize);
   }
   //Want to fetch data from the posts collection
