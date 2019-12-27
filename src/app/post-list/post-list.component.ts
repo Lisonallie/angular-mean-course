@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { Post } from '../post.model';
 import { PostsService} from '../posts.service';
+import { PageEvent } from '@angular/material';
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
@@ -34,6 +35,11 @@ export class PostListComponent implements OnInit, OnDestroy {
     //2: will be called whenever an error is emitted error()
     //3: function called whenever the observable is completed/ there are no more values to be expected complete()
   }
+
+  onChangedPage(pageData: PageEvent) {
+    console.log(pageData);
+  }
+  
 
   onDelete(postId: string) {
     this.postsService.deletePost(postId);
