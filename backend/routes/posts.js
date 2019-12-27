@@ -102,6 +102,8 @@ router.patch("/:id", multer({storage: storage}).single("image"), (request, respo
 //does something with the response from 1st next function
 //also ends response writing stream & returns this response
 router.get("", (request, response, next) => {
+  // w/ query parameters you can add extra info to the end of your url, separated by question mark
+  console.log(request.query);
   //Want to fetch data from the posts collection
   Post.find().then(documents => {
     //can send posts or a more complicated method::
