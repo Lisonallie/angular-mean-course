@@ -30,6 +30,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     //                                                                  vv since we updated our subject (in posts services), we're getting back a JS object instead
     this.postsSub = this.postsService.getPostUpdateListener().subscribe((postData: {posts: Post[], postCount: number}) => {
       this.isLoading = false;
+      this.totalPosts = postData.postCount;
       this.posts = postData.posts; //updates whenever receives a new value
       //now want to make sure that for the subscription we set up when it is not part of the DOM that it is not living anymore. otherwise there is a MEMORY LEAK
     });
