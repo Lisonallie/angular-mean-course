@@ -15,6 +15,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSignUp(form: NgForm) {
-    console.log(form.value);
+    //send a request to the backend to add a new user
+    
   }
 }
