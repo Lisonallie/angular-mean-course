@@ -14,7 +14,9 @@ export class PostsService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getPosts() {
+  getPosts(postsPerPage: number, currentPage: number) {
+    // two backticks is a template expression
+    const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
     //want to return get request from backend (inject angular http client into the service)
     //Expects a path to our server
     //                                              vvv need to listen (subscribe)
@@ -22,7 +24,7 @@ export class PostsService {
     //get method here already handles the json format input and outputs javascript
     this.http
     .get<{id: string, message: string, posts: any}>(
-      'http://localhost:3000/api/posts'
+      'http://localhost:3000/api/posts' + queryParams
       )
       //postData is declared here & given a value
       .pipe(map((postData) => {
