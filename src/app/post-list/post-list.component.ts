@@ -27,9 +27,10 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     //                                            vv current page
     this.postsService.getPosts(this.postsPerPage, this.currentPage); //fetching
-    this.postsSub = this.postsService.getPostUpdateListener().subscribe((posts: Post[]) => {
+    //                                                                  vv since we updated our subject (in posts services), we're getting back a JS object instead
+    this.postsSub = this.postsService.getPostUpdateListener().subscribe((postData: {posts: Post[], postCount: number}) => {
       this.isLoading = false;
-      this.posts = posts; //updates whenever receives a new value
+      this.posts = postData.posts; //updates whenever receives a new value
       //now want to make sure that for the subscription we set up when it is not part of the DOM that it is not living anymore. otherwise there is a MEMORY LEAK
     });
     //subscribe subscribes you to the post update, takes 3 possible arguments:
@@ -50,6 +51,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   onDelete(postId: string) {
     this.postsService.deletePost(postId)
       .subscribe(() => {
+        this.isLoading = true;
         //                vvv re-fetch posts upon delete
         this.postsService.getPosts(this.postsPerPage, this.currentPage);
       });
