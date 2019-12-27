@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 const Post = require("./models/post");
 
 const postsRoutes = require("./routes/posts");
+const userRoutes = require("./routes/user");
 
 //chain of middlewares (funnel send express & have different parts & each part does something different w/ the request)
 const app = express();
@@ -69,6 +70,7 @@ app.use((request, response, next) => {
 //make app aware of post routes from posts.js
 //      vv filter for requests going to this; don't have to include it in argument in each post router if it's done this way
 app.use("/api/posts", postsRoutes);
+app.use("/api/user", userRoutes);
 
 //export this app
 //exports the const & all the new middlewares we added to it
