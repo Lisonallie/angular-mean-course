@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 })
 export class PostsService {
   private posts: Post[] = []; //declare posts class exportation
-  private postsUpdated = new Subject<Post[]>(); //passing a list of posts to the subject
+  //                                  vv now has a post property which passes an array of Posts
+  private postsUpdated = new Subject<{post: Post[], postCount: number}>(); //passing a list of posts to the subject
 
   constructor(private http: HttpClient, private router: Router) { }
 
