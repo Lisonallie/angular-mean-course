@@ -1,0 +1,29 @@
+mat-form-field {
+    width: 90%;
+    margin: .3rem 0;
+    padding: 1rem;
+}
+
+mat-spinner {
+    margin: auto;
+    width: 50%;
+    height: auto;
+}
+
+mat-card {
+    width: 19rem;
+    margin: auto;
+    /* margin-top: 25%; */
+}
+
+.login {
+    margin-left: 1rem;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    color: #673AB7;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: -.4rem;
+}
