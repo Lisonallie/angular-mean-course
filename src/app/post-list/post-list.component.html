@@ -1,23 +1,38 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading"> <!-- multi=true allows multiple instances of the accordion to be open at the same time. -->
-    <mat-expansion-panel *ngFor="let post of posts"> <!-- "posts" here is the variable defined in the ts file while post is any name you give it that will be stored here. -->
-        <mat-expansion-panel-header>
-            {{ post.title }} <!-- like in the ts file where we declared title  -->
-        </mat-expansion-panel-header>
-        <div class="post-image">
-            <img [src]="post.imagePath" [alt]="post.title">
-        </div>
-                <p>
-                    {{ post.content }} <!-- like in the ts file where we declared content  -->
-                </p>
-                <mat-action-row> <!-- adds action row -->
-                    <!-- bind to a property of routerLink that's of the same name -->
-                    <!--                                   vv referring to the post we're looping through -->
-                    <a mat-button [routerLink]="['/edit', post.id]">EDIT</a>
-                    <button mat-button color="warn" (click)="onDelete(post.id)">DELETE</button>
-                </mat-action-row>
-    </mat-expansion-panel>
+<mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading">
+  <!-- multi=true allows multiple instances of the accordion to be open at the same time. -->
+  <mat-expansion-panel *ngFor="let post of posts">
+    <!-- "posts" here is the variable defined in the ts file while post is any name you give it that will be stored here. -->
+    <mat-expansion-panel-header>
+      {{ post.title }}
+      <!-- like in the ts file where we declared title  -->
+    </mat-expansion-panel-header>
+    <div class="post-image">
+      <img [src]="post.imagePath" [alt]="post.title" />
+    </div>
+    <p>
+      {{ post.content }}
+      <!-- like in the ts file where we declared content  -->
+    </p>
+    <mat-action-row>
+      <!-- adds action row -->
+      <!-- bind to a property of routerLink that's of the same name -->
+      <!--                                   vv referring to the post we're looping through -->
+      <a mat-button [routerLink]="['/edit', post.id]">EDIT</a>
+      <button mat-button color="warn" (click)="onDelete(post.id)">
+        DELETE
+      </button>
+    </mat-action-row>
+  </mat-expansion-panel>
 </mat-accordion>
 <!--                                                                                                    vv will call this method whenever we switch the page -->
-<mat-paginator [length]="totalPosts" [pageSize]="postsPerPage" [pageSizeOptions]="pageSizeOptions" (page)="onChangedPage($event)"></mat-paginator>
-<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">No posts added yet.</p>
+<mat-paginator
+  [length]="totalPosts"
+  [pageSize]="postsPerPage"
+  [pageSizeOptions]="pageSizeOptions"
+  (page)="onChangedPage($event)"
+  *ngIf="posts.length > 0"
+></mat-paginator>
+<p class="info-text mat-body-1" *ngIf="posts.length <= 0 && !isLoading">
+  No posts added yet.
+</p>
