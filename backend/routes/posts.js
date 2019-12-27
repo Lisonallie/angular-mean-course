@@ -108,6 +108,8 @@ router.get("", (request, response, next) => {
   const pageSize = +request.query.pagesize;
   const currentPage = +request.query.page;
   const postQuery = Post.find();
+  //store documents from 1st then block in a variable so I can use them in the 2nd then block
+  let fetchedPosts;
   if(pageSize && currentPage) {
     postQuery
     //not retrieve all posts but will skip the first end posts
@@ -123,11 +125,18 @@ router.get("", (request, response, next) => {
   //Want to fetch data from the posts collection
   //old code   Post.find()
   postQuery.then(documents => {
+    fetchedPosts = documents;
+    //              vv counts all results
+    return Post.count();
+  })
+  .then(count => {
     //can send posts or a more complicated method::
     response.status(200).json({
       message: "posts fetched successfully!",
       // documents are the items from database
-      posts: documents
+      posts: fetchedPosts,
+      // # of posts we have in the database in total (found from count method)
+      maxPosts: count
     });
   });
   //   const posts = [
