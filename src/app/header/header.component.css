@@ -17,3 +17,7 @@ ul {
 .color-class {
     color: #e8645a;
 }
+
+.header-controls {
+    display: inline-flex;
+}
