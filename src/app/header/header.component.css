@@ -17,3 +17,16 @@ ul {
 .header-controls {
     display: inline-flex;
 }
+
+.container {
+    width: 15%;
+    height: auto;
+    display: flex;
+}
+img {
+    width: 80%;
+}
+
+span {
+    margin-left: -3rem;
+}

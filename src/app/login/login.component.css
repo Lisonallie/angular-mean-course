@@ -11,13 +11,14 @@ mat-spinner {
 }
 
 mat-card {
-    width: 35%;
+    width: 19rem;
     margin: auto;
+    /* margin-top: 25%; */
 }
 
 .login {
     margin-left: 1rem;
-    margin-bottom: 5px;
+    margin-bottom: 2rem;
 }
 
 h2 {
