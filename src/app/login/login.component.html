@@ -1,6 +1,7 @@
 <mat-card>
     <mat-spinner mode="indeterminate" *ngIf="isLoading"></mat-spinner>
     <form *ngIf="!isLoading">
+        <h2 class="login-head">Login</h2>
       <mat-form-field>
         <input
           matInput
@@ -19,7 +20,7 @@
         </mat-error>
       </mat-form-field>
       <br />
-      <button mat-raised-button color="primary" type="submit">Login</button>
+      <button class="login" mat-raised-button color="primary" type="submit">Login</button>
     </form>
   </mat-card>
   
