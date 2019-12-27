@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class PostsService {
   private posts: Post[] = []; //declare posts class exportation
   //                                  vv now has a post property which passes an array of Posts
-  private postsUpdated = new Subject<{post: Post[], postCount: number}>(); //passing a list of posts to the subject
+  private postsUpdated = new Subject<{posts: Post[], postCount: number}>(); //passing a list of posts to the subject
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -44,7 +44,7 @@ export class PostsService {
       //setting the posts to the posts coming from the server
       this.posts = transformedPostData.posts;
       //inform the other parts of our app about this update
-      this.postsUpdated.next([...this.posts]);
+      this.postsUpdated.next({posts: [...this.posts], postCount: transformedPostData.maxPosts});
     });
     //remember subscribe has 3 arguments
     //return [...this.posts]; //copy(take all elements from other array, pull them out and add them to this new array) array here with spread operator
