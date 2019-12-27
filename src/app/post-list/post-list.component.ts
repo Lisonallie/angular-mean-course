@@ -14,7 +14,7 @@ export class PostListComponent implements OnInit, OnDestroy {
                 //add type post here to specify it's a post.
   private postsSub: Subscription;
   isLoading = false;
-  totalPosts = 10;
+  totalPosts = 0;
   postsPerPage = 2;
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
