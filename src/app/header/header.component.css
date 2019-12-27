@@ -14,10 +14,6 @@ ul {
     flex: 1 1 auto;
 }
 
-.color-class {
-    color: #e8645a;
-}
-
 .header-controls {
     display: inline-flex;
 }
