@@ -15,7 +15,15 @@ export class AuthInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler) {
         // new const that holds my token
         const authToken = this.authService.getToken();
+        //manipulate the request to hold this token
+        //need to clone the request first
+        const authRequest = request.clone({
+            //adds a new header to the headers and sets a value for it
+            //                                 vv name of header
+            //                                             vv value of header
+            headers: request.headers.set("Authorization", authToken)
+        });
         //allow the request to continue its journey
-        return next.handle(request);
+        return next.handle(authRequest);
     };
 }
