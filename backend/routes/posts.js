@@ -3,6 +3,7 @@ const multer = require('multer');
 
 const router = express.Router();
 const Post = require("../models/post");
+const checkAuth = require("../middleware/check-auth");
 
 const MIME_TYPE_MAP = {
   'image/png': 'png',
