@@ -26,6 +26,7 @@ export class AuthService {
       .subscribe(response => {
         // here subscribes to the backend basically. when we add the token here, it accesses it through the response
         const token = response.token;
+        this.token = token;
       });
   }
 }
