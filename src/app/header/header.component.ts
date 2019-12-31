@@ -8,13 +8,17 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  userIsAuthenticated = false;
   private authListenerSubs: Subscription;
 
   constructor(private authService: AuthService) {}
   //use auth service to get the token we need
   ngOnInit() {
     //set up subscription to the authStatusListener in auth.service.js
-    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe();
+    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      //push the information to the component and use it in the component
+      this.userIsAuthenticated = isAuthenticated;
+    });
   }
 
   ngOnDestroy() {
