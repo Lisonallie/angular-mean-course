@@ -1,6 +1,7 @@
 //implement login and signup routes
 const express = require("express");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const User = require("../models/users");
 
@@ -58,8 +59,14 @@ router.post("/login", (request, response, next) => {
       if (!result) {
         return response.status(401).json({
           message: "Authorization failed, no result was given"
-        })
+        });
       }
+      // here we know we have a valid password sent by the user
+      //                vvv creates a new token based on input data of your choice
+      const token = jwt.sign({
+        email: user.email,
+        userId: user._id
+      });
     })
     .catch(error => {
       return response.status(401).json({
