@@ -19,6 +19,8 @@ export class PostListComponent implements OnInit, OnDestroy {
   postsPerPage = 2;
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
+  userIsAuthenticated = false;
+  private authStatusSub: Subscription;
 
   constructor(public postsService: PostsService, private authService: AuthService) { //public keyword automatically creates a new property in this component & stores the incoming value in that property
     
@@ -39,6 +41,9 @@ export class PostListComponent implements OnInit, OnDestroy {
     //1: function which gets executed whenever new data is emitted next()
     //2: will be called whenever an error is emitted error()
     //3: function called whenever the observable is completed/ there are no more values to be expected complete()
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
   }
 
   onChangedPage(pageData: PageEvent) {
@@ -61,6 +66,7 @@ export class PostListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.postsSub.unsubscribe();
+    this.authStatusSub.unsubscribe();
   }
 
 }
