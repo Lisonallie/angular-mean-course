@@ -23,6 +23,7 @@ export class AuthService {
     const authData: AuthData = {email: email, password: password};
     this.http.post("http://localhost:3000/api/user/login", authData)
       .subscribe(response => {
+        // here subscribes to the backend basically. when we add the token here, it accesses it through the response
         console.log(response);
       });
   }
