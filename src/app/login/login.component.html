@@ -25,8 +25,8 @@
         </mat-error>
       </mat-form-field>
       <br />
-      <button class="login" mat-raised-button color="primary" type="submit">Login</button>
-      <mat-spinner></mat-spinner>
+      <button class="login" mat-raised-button color="primary" type="submit" *ngIf="!isLoading">Login</button>
+      <mat-spinner *nfIf="isLoading"></mat-spinner>
     </form>
   </mat-card>
   
