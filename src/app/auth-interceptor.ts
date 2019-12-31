@@ -20,8 +20,9 @@ export class AuthInterceptor implements HttpInterceptor {
         const authRequest = request.clone({
             //adds a new header to the headers and sets a value for it
             //                                 vv name of header
-            //                                             vv value of header
-            headers: request.headers.set("Authorization", authToken)
+            //                                                          vv value of header
+            //                                             vv construct it the same way as the backend
+            headers: request.headers.set("Authorization","Bearer " + authToken)
         });
         //allow the request to continue its journey
         return next.handle(authRequest);
