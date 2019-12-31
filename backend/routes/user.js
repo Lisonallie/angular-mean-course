@@ -37,4 +37,14 @@ router.post("/signup", (request, response, next) => {
     });
 });
 
+//create another route that checks for token
+
+router.post("/login", (request, response, next) => {
+  //find out whether the email address exists
+  User.findOne({ email: request.body.email })
+    .then(user => {
+
+    });
+});
+
 module.exports = router;
