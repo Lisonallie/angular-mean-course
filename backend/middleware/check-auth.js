@@ -14,6 +14,12 @@ module.exports = (request, response, next) => {
     //                                                        vv token(comment)
     //                              vv looks like "Bearer sdlfkqjldsjfqmsqdlf"
     const token = request.headers.authorization.split(" ")[1];
+    //yes it works yay, able to extract token
+    //verify token
+    //      vv also throws an error if it doesn't verify
+    //                  vv same secret string as defined in user.js
+    jwt.verify(token, "secret_this_should_be_longer");
+    next();
   } catch (error) {  //if it fails
     //don't have a token, not authenticated
     response.status(401).json({
