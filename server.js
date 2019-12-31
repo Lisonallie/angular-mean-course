@@ -1,53 +1,51 @@
 //starting a server with error handling
-const app = require('./backend/app');
-const debug = require('debug')('node-angular');
-const http = require('http');
+const app = require("./backend/app");
+const debug = require("debug")("node-angular");
+const http = require("http");
 
 //makes sure that when we try to set up a port and especially when we receive it from an environment variable, we make sure it's a valid number
 const normalizePort = val => {
     var port = parseInt(val, 10);
-
+  
     if (isNaN(port)) {
-        //name pipe
-        return val;
+      // named pipe
+      return val;
     }
-
+  
     if (port >= 0) {
-        //port number
-        return port;
+      // port number
+      return port;
     }
-
+  
     return false;
-};
+  };
 
 //checks which type of error occured & logs that error
 const onError = error => {
     if (error.syscall !== "listen") {
+      throw error;
+    }
+    const bind = typeof addr === "string" ? "pipe " + addr : "port " + port;
+    switch (error.code) {
+      case "EACCES":
+        console.error(bind + " requires elevated privileges");
+        process.exit(1);
+        break;
+      case "EADDRINUSE":
+        console.error(bind + " is already in use");
+        process.exit(1);
+        break;
+      default:
         throw error;
     }
-    
-    const bind = typeof addr === "string" ? "pipe " + addr : "port " + port;
-
-    switch (error.code) {
-        case "EACCES":
-            console.error(bind + " requires elevated privileges");
-            process.exit(1);
-            break;
-        case "EADDRINUSE":
-            console.error(bind + " is already in use");
-            process.exit(1);
-            break;
-        default:
-            throw error;
-    }
-}
+  };
 
 //log that we are listening to incoming requests 
 const onListening = () => {
     const addr = server.address();
     const bind = typeof addr === "string" ? "pipe " + addr : "port " + port;
     debug("Listening on " + bind);
-}
+  };
 
 //Setting port utilizing normalizePort() from above
 const port = normalizePort(process.env.PORT || "3000");
