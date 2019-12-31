@@ -49,6 +49,8 @@ export class AuthService {
           this.isAuthenticated = true;
           //informing everyone who's interested about our header being authenticated
           this.authStatusListener.next(true);
+          //redirect to homepage
+          this.router.navigate(['/']);
         }
       });
   }
@@ -58,5 +60,6 @@ export class AuthService {
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
+    this.router.navigate(['/']);
   }
 }
