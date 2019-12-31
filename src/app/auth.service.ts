@@ -50,6 +50,7 @@ export class AuthService {
           const expiresInDuration = response.expiresIn;
           this.tokenTimer = setTimeout(() => {
             this.logout();
+            //                    vv add this because it's in seconds
           }, expiresInDuration * 1000);
           this.isAuthenticated = true;
           //informing everyone who's interested about our header being authenticated
@@ -65,7 +66,7 @@ export class AuthService {
     this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
     //clears timer upon logout
     clearTimeout(this.tokenTimer);
   }
