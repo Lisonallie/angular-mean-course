@@ -68,7 +68,9 @@ router.post("/login", (request, response, next) => {
         userId: user._id
       }, 
       //enter our own secret(password) for creating these tokens that'll be stored on the server and will be used to validate these hashes(why they're uncrackable)
-      'secret_this_should_be_longer'
+      'secret_this_should_be_longer',
+      //configure the token(optional)
+      {expiresIn: "1h"}
       );
     })
     .catch(error => {
