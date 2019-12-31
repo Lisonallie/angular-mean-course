@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   private isAuthenticated = false;
   private token: string;
+  private tokenTimer: NodeJS.Timer;
   //want to be able to push that token info to the component that needs it 
   private authStatusListener = new Subject<boolean>();
 
@@ -40,12 +41,16 @@ export class AuthService {
 
   login(email: string, password: string) {
     const authData: AuthData = {email: email, password: password};
-    this.http.post<{token: string}>("http://localhost:3000/api/user/login", authData)
+    this.http.post<{token: string, expiresIn: number}>("http://localhost:3000/api/user/login", authData)
       .subscribe(response => {
         // here subscribes to the backend basically. when we add the token here, it accesses it through the response
         const token = response.token;
         this.token = token;
         if (token) {
+          const expiresInDuration = response.expiresIn;
+          this.tokenTimer = setTimeout(() => {
+            this.logout();
+          }, expiresInDuration * 1000);
           this.isAuthenticated = true;
           //informing everyone who's interested about our header being authenticated
           this.authStatusListener.next(true);
@@ -61,5 +66,7 @@ export class AuthService {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     this.router.navigate(['/']);
+    //clears timer upon logout
+    clearTimeout(this.tokenTimer);
   }
 }
