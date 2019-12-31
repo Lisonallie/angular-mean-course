@@ -6,6 +6,7 @@ import { AuthData } from './auth-data.model';
   providedIn: 'root'
 })
 export class AuthService {
+  private token: string;
 
   //I want to send an http request so I need to inject the http client
   constructor(private http: HttpClient) { }
@@ -21,10 +22,10 @@ export class AuthService {
   }
   login(email: string, password: string) {
     const authData: AuthData = {email: email, password: password};
-    this.http.post("http://localhost:3000/api/user/login", authData)
+    this.http.post<{token: string}>("http://localhost:3000/api/user/login", authData)
       .subscribe(response => {
         // here subscribes to the backend basically. when we add the token here, it accesses it through the response
-        console.log(response);
+        const token = response.token;
       });
   }
 }
