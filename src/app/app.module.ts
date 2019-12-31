@@ -40,6 +40,7 @@ import { AuthInterceptor } from './auth-interceptor';
     HttpClientModule,
     FlexLayoutModule
   ],
+  //                                                                    vv can accept multiple interceptors
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
