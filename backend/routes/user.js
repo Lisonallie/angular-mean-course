@@ -43,7 +43,12 @@ router.post("/login", (request, response, next) => {
   //find out whether the email address exists
   User.findOne({ email: request.body.email })
     .then(user => {
-
+      if (!user) {
+        // 401 == authentication is denied
+        return response.status(401).json({
+          message: "Authorization failed, user does not exist"
+        });
+      }
     });
 });
 
