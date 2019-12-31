@@ -41,6 +41,8 @@ router.post("/signup", (request, response, next) => {
 //create another route that checks for token
 
 router.post("/login", (request, response, next) => {
+  //make user accessible in both then blocks
+  let fetchedUser;
   //find out whether the email address exists
   User.findOne({ email: request.body.email })
     .then(user => {
@@ -50,6 +52,7 @@ router.post("/login", (request, response, next) => {
           message: "Authorization failed, user does not exist"
         });
       }
+      fetchedUser = user;
       // match password in database to password entered by user
       //                                            vvv password stored in the database
       return bcrypt.compare(request.body.password, user.password);
@@ -64,20 +67,20 @@ router.post("/login", (request, response, next) => {
       // here we know we have a valid password sent by the user
       //                vvv creates a new token based on input data of your choice
       const token = jwt.sign({
-        email: user.email,
-        userId: user._id
+        email: fetchedUser.email,
+        userId: fetchedUser._id
       }, 
       //enter our own secret(password) for creating these tokens that'll be stored on the server and will be used to validate these hashes(why they're uncrackable)
       'secret_this_should_be_longer',
       //configure the token(optional)
       {expiresIn: "1h"}
-      );
+      );      
       //return the token, no further code so don't need to have "return"
       response.status(200).json({
         token: token
       })
     })
-    .catch(error => {
+    .catch(error => {      
       return response.status(401).json({
         message: "Authorization failed, password does not match"
       })
