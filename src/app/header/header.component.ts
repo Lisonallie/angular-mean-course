@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogout() {
     //should clear the token & inform all chained bits of the changed authentication status--for this need to edit the auth service.js
+    this.authService.logout();
   }
 
   ngOnDestroy() {
