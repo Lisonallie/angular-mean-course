@@ -37,6 +37,7 @@ export class PostListComponent implements OnInit, OnDestroy {
       this.posts = postData.posts; //updates whenever receives a new value
       //now want to make sure that for the subscription we set up when it is not part of the DOM that it is not living anymore. otherwise there is a MEMORY LEAK
     });
+    this.userIsAuthenticated = this.authService.getAuthStatus();
     //subscribe subscribes you to the post update, takes 3 possible arguments:
     //1: function which gets executed whenever new data is emitted next()
     //2: will be called whenever an error is emitted error()
