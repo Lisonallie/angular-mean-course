@@ -49,6 +49,22 @@ router.post("/login", (request, response, next) => {
           message: "Authorization failed, user does not exist"
         });
       }
+      // match password in database to password entered by user
+      //                                            vvv password stored in the database
+      return bcrypt.compare(request.body.password, user.password);
+    })
+    .then(result => {
+      //true if successfully compared
+      if (!result) {
+        return response.status(401).json({
+          message: "Authorization failed, no result was given"
+        })
+      }
+    })
+    .catch(error => {
+      return response.status(401).json({
+        message: "Authorization failed, password does not match"
+      })
     });
 });
 
