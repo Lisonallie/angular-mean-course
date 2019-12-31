@@ -11,6 +11,10 @@ export class AuthService {
   //I want to send an http request so I need to inject the http client
   constructor(private http: HttpClient) { }
 
+  getToken() {
+    return this.token;
+  }
+
   createUser(email: string, password: string) {
     const authData: AuthData = {email: email, password: password};
       //send request, should go to our local domain /api/user/signup
