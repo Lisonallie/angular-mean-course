@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  private isAuthenticated = false;
   private token: string;
   //want to be able to push that token info to the component that needs it 
   private authStatusListener = new Subject<boolean>();
@@ -39,8 +40,11 @@ export class AuthService {
         // here subscribes to the backend basically. when we add the token here, it accesses it through the response
         const token = response.token;
         this.token = token;
-        //informing everyone who's interested about our header being authenticated
-        this.authStatusListener.next(true);
+        if (token) {
+          this.isAuthenticated = true;
+          //informing everyone who's interested about our header being authenticated
+          this.authStatusListener.next(true);
+        }
       });
   }
 }
