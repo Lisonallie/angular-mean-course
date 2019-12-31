@@ -40,6 +40,7 @@ const storage = multer.diskStorage({
 //ataches a middleware triggered for incoming post requests
 //can add extra middleware before the function is executed
 //              vv multer will extract a single file from the incoming request & try to find it on an image property in the request body.
+//          vv look at the path
 router.post("", multer({storage: storage}).single("image"), (request, response, next) => {
   //store posts from database here
   //check if getting data to that route works
