@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Post } from '../post.model';
 import { PostsService} from '../posts.service';
 import { PageEvent } from '@angular/material';
+import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
@@ -19,7 +20,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
 
-  constructor(public postsService: PostsService) { //public keyword automatically creates a new property in this component & stores the incoming value in that property
+  constructor(public postsService: PostsService, private authService: AuthService) { //public keyword automatically creates a new property in this component & stores the incoming value in that property
     
   }
 
