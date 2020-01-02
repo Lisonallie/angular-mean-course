@@ -202,7 +202,7 @@ router.delete(
   // vv able to access id property here
   (request, response, next) => {
     Post.deleteOne({ _id: request.params.id, creator: request.userData.userId }).then(result => {
-      if(result.nModified > 0) {
+      if(result.n> 0) {
         response.status(200).json({ message: "Post deleted" });
       } else {
         response.status(401).json({ message: "Not authorized" });
