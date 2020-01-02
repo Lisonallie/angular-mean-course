@@ -73,6 +73,10 @@ export class AuthService {
 
   //store data in the local storage once authenticated
   private saveAuthData(token: string, expirationDate: Date) {
-
+    //localstorage API I can access
+    //key & value pairs
+    localStorage.setItem('token', token);
+    //                                                vvv serialized & standardized version of the string
+    localStorage.setItem('expiration', expirationDate.toISOString());
   }
 }
