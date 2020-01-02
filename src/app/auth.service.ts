@@ -67,7 +67,7 @@ export class AuthService {
 
   autoAuthUser() {
     //try to automatically authenticate the user if we already have the information required for a user
-
+    const authInformation = this.getAuthData();
   }
 
   logout() {
