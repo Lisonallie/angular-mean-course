@@ -65,6 +65,9 @@ export class AuthService {
   autoAuthUser() {
     //try to automatically authenticate the user if we already have the information required for a user
     const authInformation = this.getAuthData();
+    if (!authInformation) {
+      return;
+    }
     //check if token is still valid (not expired)
     const now = new Date();
     //                 vv getting difference between expiration date & current date
