@@ -72,6 +72,15 @@ export class AuthService {
     const now = new Date();
     //                                                vv have a date in the future
     const isInFuture = authInformation.expirationDate > now;
+    if (isInFuture) {
+      //if yes then user should be authenticated
+      this.token = authInformation.token;
+      this.isAuthenticated = true;
+      //                            vvv the user is authenticated
+      this.authStatusListener.next(true);
+      //Set timer
+      
+    }
   }
 
   logout() {
