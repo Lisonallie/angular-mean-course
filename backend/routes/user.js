@@ -79,6 +79,8 @@ router.post("/login", (request, response, next) => {
       response.status(200).json({
         token: token,
         expiresIn: 3600, //3600 seconds = 1hr
+        // could take this value from the decoded token but it will impact front-end performance so better to re-declare it
+        // pass userId to front end whenever we log in
         userId: fetchedUser._id
       })
     })
