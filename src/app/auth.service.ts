@@ -98,5 +98,7 @@ export class AuthService {
 
   private getAuthData() {
     //need to make so can use autoauthuser
+    const token = localStorage.getItem('token');
+    const expirationDate = localStorage.getItem('expiration');
   }
 }
