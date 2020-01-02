@@ -19,7 +19,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             //allows us to handle errors emitted in this stream of requests
             catchError((error: HttpErrorResponse) => {
-                this.dialog.open(ErrorComponent);
+                this.dialog.open(ErrorComponent, {data: {message: }});
                     //need to return an observable here
                 return throwError(error);
                 
