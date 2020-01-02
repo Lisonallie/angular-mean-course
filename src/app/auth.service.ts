@@ -48,10 +48,6 @@ export class AuthService {
         this.token = token;
         if (token) {
           const expiresInDuration = response.expiresIn;
-          this.tokenTimer = setTimeout(() => {
-            this.logout();
-            //                    vv add this because it's in seconds
-          }, expiresInDuration * 1000);
           this.isAuthenticated = true;
           //informing everyone who's interested about our header being authenticated
           this.authStatusListener.next(true);
@@ -79,8 +75,15 @@ export class AuthService {
       //                            vvv the user is authenticated
       this.authStatusListener.next(true);
       //Set timer
-      
+
     }
+  }
+
+  private setAuthTimer(duration: number) {
+    this.tokenTimer = setTimeout(() => {
+      this.logout();
+      //                    vv add this because it's in seconds
+    }, duration * 1000);
   }
 
   logout() {
