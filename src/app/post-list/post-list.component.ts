@@ -20,6 +20,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
   userIsAuthenticated = false;
+  userId: string;
   private authStatusSub: Subscription;
 
   constructor(public postsService: PostsService, private authService: AuthService) { //public keyword automatically creates a new property in this component & stores the incoming value in that property
@@ -30,6 +31,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     //                                            vv current page
     this.postsService.getPosts(this.postsPerPage, this.currentPage); //fetching
+    this.userId = this.authService.getUserId();
     //                                                                  vv since we updated our subject (in posts services), we're getting back a JS object instead
     this.postsSub = this.postsService.getPostUpdateListener().subscribe((postData: {posts: Post[], postCount: number}) => {
       this.isLoading = false;
