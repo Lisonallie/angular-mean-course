@@ -201,7 +201,7 @@ router.delete(
   checkAuth,
   // vv able to access id property here
   (request, response, next) => {
-    Post.deleteOne({ _id: request.params.id }).then(result => {
+    Post.deleteOne({ _id: request.params.id, creator: request.userData.userId }).then(result => {
       console.log(result);
       response.status(200).json({ message: "Post deleted" });
     });
