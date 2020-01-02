@@ -67,6 +67,7 @@ export class AuthService {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     this.router.navigate(['/login']);
+    this.clearAuthData();
     //clears timer upon logout
     clearTimeout(this.tokenTimer);
   }
@@ -78,5 +79,11 @@ export class AuthService {
     localStorage.setItem('token', token);
     //                                                vvv serialized & standardized version of the string
     localStorage.setItem('expiration', expirationDate.toISOString());
+  }
+
+  private clearAuthData() {
+    //remove the auth data
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiration');
   }
 }
