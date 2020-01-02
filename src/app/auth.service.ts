@@ -48,6 +48,7 @@ export class AuthService {
         this.token = token;
         if (token) {
           const expiresInDuration = response.expiresIn;
+          this.setAuthTimer(expiresInDuration);
           this.isAuthenticated = true;
           //informing everyone who's interested about our header being authenticated
           this.authStatusListener.next(true);
