@@ -38,7 +38,10 @@ export class AuthService {
     const authData: AuthData = {email: email, password: password};
       //send request, should go to our local domain /api/user/signup
       // for this request need to create a new model
-      return this.http.post("http://localhost:3000/api/user/signup", authData);
+      return this.http.post("http://localhost:3000/api/user/signup", authData)
+      .subscribe(() => {
+        this.router.navigate(["/"]);
+      });
   }
 
   login(email: string, password: string) {
