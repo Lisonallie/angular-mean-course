@@ -13,10 +13,11 @@ export class ErrorInceptor implements HttpInterceptor {
             //allows us to handle errors emitted in this stream of requests
             catchError((error: HttpErrorResponse) => {
                 console.log(error);
+                alert(error.error.message);
                 //need to return an observable here
                 return throwError(error);
                 
-            });
+            })
         );
     };
 }
