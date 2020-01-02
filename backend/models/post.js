@@ -7,7 +7,10 @@ const postSchema = mongoose.Schema({
     //add more information:
     title: { type: String, required: true }, //find more specifications in mongoose docs
     content: { type: String, required: true },
-    imagePath: { type: String, required: true }
+    imagePath: { type: String, required: true },
+    //store user information, mongoose object ID
+    //                                               vv allows us to define which model the ID we're storing belongs to
+    creator: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }
 });
 
 //mongoose needs a model to work with it
