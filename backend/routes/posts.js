@@ -116,7 +116,12 @@ router.patch(
     //                                                                            vvv this post is the post const we just declared within the function
     //                                                  vvv make sure user who edits post is the one who created it
     Post.updateOne({ _id: request.params.id, creator: request.userData.userId }, post).then(result => {
-      response.status(200).json({ message: "update successful" });
+      // if we did update the post
+      if(result.nModified > 0) {
+        response.status(200).json({ message: "Update successful" });
+      } else {
+        response.status(401).json({ message: "Not authorized" });
+      }
     });
   }
 );
