@@ -67,15 +67,16 @@ export class AuthService {
     const authInformation = this.getAuthData();
     //check if token is still valid (not expired)
     const now = new Date();
-    //                                                vv have a date in the future
-    const isInFuture = authInformation.expirationDate > now;
-    if (isInFuture) {
+    //                          deducting current timestamp from the timestamp in the future
+    const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
+    if (expiresIn > 0) {
       //if yes then user should be authenticated
       this.token = authInformation.token;
       this.isAuthenticated = true;
+      //Set timer
+      this.setAuthTimer(expiresIn);
       //                            vvv the user is authenticated
       this.authStatusListener.next(true);
-      //Set timer
 
     }
   }
