@@ -78,7 +78,8 @@ router.post("/login", (request, response, next) => {
       //return the token, no further code so don't need to have "return"
       response.status(200).json({
         token: token,
-        expiresIn: 3600 //3600 seconds = 1hr
+        expiresIn: 3600, //3600 seconds = 1hr
+        userId: fetchedUser._id
       })
     })
     .catch(error => {      
