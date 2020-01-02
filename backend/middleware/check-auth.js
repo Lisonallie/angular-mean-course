@@ -18,7 +18,7 @@ module.exports = (request, response, next) => {
     //verify token
     //      vv also throws an error if it doesn't verify
     //                  vv same secret string as defined in user.js
-    jwt.verify(token, "secret_this_should_be_longer");
+    const decodedToken = jwt.verify(token, "secret_this_should_be_longer");
     next();
   } catch (error) {  //if it fails
     //don't have a token, not authenticated

@@ -63,7 +63,10 @@ router.post(
       title: request.body.title,
       content: request.body.content,
       //                                    vv provided by multer
-      imagePath: url + "/images/" + request.file.filename
+      imagePath: url + "/images/" + request.file.filename,
+      // pass new creator field created in post model, fetch userID from the token in user routes
+      //we verify token in check-auth middleware, which returns a result of the decoded token
+      creator: 
     });
     //save method provided by mongoose package for every model created with it
     //automatically created the right query for the database & injects it into db
