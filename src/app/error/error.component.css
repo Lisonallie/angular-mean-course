@@ -1,0 +1,27 @@
+button {
+    margin: 0 auto;
+    margin-top: -2rem;
+    border: 1px solid #673AB7;
+    background: white;
+}
+
+button:hover {
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+    background: white;
+}
+
+h1 {
+    padding: 15px;
+    margin-bottom: -1.5rem;
+    font-size: 2rem;
+}
+
+p {
+    padding: 15px;
+    font-size: 1rem;
+}
+
+.center {
+    margin: 0 auto;
+    text-align: center;
+}
