@@ -133,6 +133,7 @@ export class AuthService {
     //need to make so can use autoauthuser
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expiration');
+    const userId = localStorage.getItem('userId');
     if (!token || !expirationDate) {
       return;
     }
