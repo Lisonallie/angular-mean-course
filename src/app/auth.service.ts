@@ -62,7 +62,7 @@ export class AuthService {
           // creates a date object for the current moment, need it to be able to pass as argument to saveauthdata
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData('token', expirationDate, 'userId');          
+          this.saveAuthData('token', expirationDate, this.userId);          
           //redirect to homepage
           this.router.navigate(['/']);
         }
@@ -83,6 +83,7 @@ export class AuthService {
       //if yes then user should be authenticated
       this.token = authInformation.token;
       this.isAuthenticated = true;
+      //              vvv the userId fetched from the localstorage
       this.userId = authInformation.userId;
       //Set timer, authtimer works in seconds so have to get back to milliseconds
       this.setAuthTimer(expiresIn / 1000);
