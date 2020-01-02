@@ -70,4 +70,9 @@ export class AuthService {
     //clears timer upon logout
     clearTimeout(this.tokenTimer);
   }
+
+  //store data in the local storage once authenticated
+  private saveAuthData() {
+    
+  }
 }
