@@ -101,7 +101,7 @@ export class PostsService {
       postData.append("content", content),
       postData.append("image", image, title)
     } else {
-      postData = { id: id, title: title, content: content, imagePath: image}
+      postData = { id: id, title: title, content: content, imagePath: image, creator: null}
     }
     this.http.patch("http://localhost:3000/api/posts/" + id, postData)
       .subscribe(response => {
