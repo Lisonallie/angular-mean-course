@@ -68,7 +68,7 @@ export class AuthService {
     //check if token is still valid (not expired)
     const now = new Date();
     //                 vv getting difference between expiration date & current date
-    const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
+    const expiresIn = authInformation.expirationDate.getTime() - now.getTime();    
     if (expiresIn > 0) {
       //if yes then user should be authenticated
       this.token = authInformation.token;
@@ -120,7 +120,7 @@ export class AuthService {
     //need to make so can use autoauthuser
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expiration');
-    if (!token && !expirationDate) {
+    if (!token || !expirationDate) {
       return;
     }
     return {
