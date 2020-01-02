@@ -42,7 +42,7 @@ export class AuthService {
 
   login(email: string, password: string) {
     const authData: AuthData = {email: email, password: password};
-    this.http.post<{token: string, expiresIn: number}>("http://localhost:3000/api/user/login", authData)
+    this.http.post<{token: string, expiresIn: number, userId: string}>("http://localhost:3000/api/user/login", authData)
       .subscribe(response => {
         // here subscribes to the backend basically. when we add the token here, it accesses it through the response
         const token = response.token;
@@ -51,6 +51,8 @@ export class AuthService {
           const expiresInDuration = response.expiresIn;
           this.setAuthTimer(expiresInDuration);
           this.isAuthenticated = true;
+          //when we get back the response and know that we have a token
+          this.userId = response.userId;
           //informing everyone who's interested about our header being authenticated
           this.authStatusListener.next(true);
           // creates a date object for the current moment, need it to be able to pass as argument to saveauthdata
