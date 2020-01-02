@@ -35,11 +35,14 @@ export class PostsService {
             title: post.title,
             content: post.content,
             id: post._id,
-            imagePath: post.imagePath
+            imagePath: post.imagePath,
+            creator: post.creator
           };
         }), maxPosts: postData.maxPosts};
       }))
       .subscribe((transformedPostData) => {
+        console.log(transformedPostData);
+        
       //when we get a response gives access to this response
       //setting the posts to the posts coming from the server
       this.posts = transformedPostData.posts;

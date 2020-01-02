@@ -78,7 +78,8 @@ router.post(
           id: createdPost._id,
           title: createdPost.title,
           content: createdPost.content,
-          imagePath: createdPost.imagePath
+          imagePath: createdPost.imagePath,
+          creator: createdPost.creator
           //same thing vvvvv
           // ...createdPost,
           // id: createdPost._id
