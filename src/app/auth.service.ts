@@ -67,7 +67,7 @@ export class AuthService {
     const authInformation = this.getAuthData();
     //check if token is still valid (not expired)
     const now = new Date();
-    //                          deducting current timestamp from the timestamp in the future
+    //                 vv getting difference between expiration date & current date
     const expiresIn = authInformation.expirationDate.getTime() - now.getTime();
     if (expiresIn > 0) {
       //if yes then user should be authenticated
@@ -82,6 +82,8 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
+    console.log("Setting timer: " + duration);
+    
     this.tokenTimer = setTimeout(() => {
       this.logout();
       //                    vv add this because it's in seconds
