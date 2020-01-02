@@ -41,6 +41,9 @@ export class AuthService {
       return this.http.post("http://localhost:3000/api/user/signup", authData)
       .subscribe(() => {
         this.router.navigate(["/"]);
+      }, error => {
+        //tell app we're not authenticated
+        this.authStatusListener.next(false);
       });
   }
 
