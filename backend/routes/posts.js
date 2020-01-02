@@ -108,7 +108,8 @@ router.patch(
       _id: request.body.id,
       title: request.body.title,
       content: request.body.content,
-      imagePath: imagePath
+      imagePath: imagePath,
+      creator: request.userData.userId
     });
     //Post capital is post model
     //               vv with underscore because it's still stored that way in the database and we're in the backend
