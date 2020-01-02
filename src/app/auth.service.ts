@@ -69,6 +69,8 @@ export class AuthService {
           //redirect to homepage
           this.router.navigate(['/']);
         }
+      }, error => {
+        this.authStatusListener.next(false);
       });
   }
 
