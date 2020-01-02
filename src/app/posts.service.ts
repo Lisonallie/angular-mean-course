@@ -41,8 +41,6 @@ export class PostsService {
         }), maxPosts: postData.maxPosts};
       }))
       .subscribe((transformedPostData) => {
-        console.log(transformedPostData);
-        
       //when we get a response gives access to this response
       //setting the posts to the posts coming from the server
       this.posts = transformedPostData.posts;
