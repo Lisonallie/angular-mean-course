@@ -126,6 +126,7 @@ export class AuthService {
     //remove the auth data
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
+    localStorage.removeItem('userId');
   }
 
   private getAuthData() {
