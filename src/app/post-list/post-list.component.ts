@@ -46,6 +46,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     //3: function called whenever the observable is completed/ there are no more values to be expected complete()
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
+      this.userId = this.authService.getUserId();
     });
   }
 
