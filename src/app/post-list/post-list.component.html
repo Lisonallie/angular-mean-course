@@ -14,7 +14,7 @@
       {{ post.content }}
       <!-- like in the ts file where we declared content  -->
     </p>
-    <mat-action-row *ngIf="userIsAuthenticated">
+    <mat-action-row *ngIf="userIsAuthenticated && userId == post.creator">
       <!-- adds action row -->
       <!-- bind to a property of routerLink that's of the same name -->
       <!--                                   vv referring to the post we're looping through -->
