@@ -55,6 +55,10 @@ export class AuthService {
           this.isAuthenticated = true;
           //informing everyone who's interested about our header being authenticated
           this.authStatusListener.next(true);
+          // creates a date object for the current moment, need it to be able to pass as argument to saveauthdata
+          const now = new Date();
+          const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+          this.saveAuthData('token', expirationDate);
           //redirect to homepage
           this.router.navigate(['/']);
         }
