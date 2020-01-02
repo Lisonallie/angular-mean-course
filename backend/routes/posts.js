@@ -113,8 +113,9 @@ router.patch(
     //Post capital is post model
     //               vv with underscore because it's still stored that way in the database and we're in the backend
     //                    vvv id encoded in the URL
-    //                                        vvv this post is the post const we just declared within the function
-    Post.updateOne({ _id: request.params.id }, post).then(result => {
+    //                                                                            vvv this post is the post const we just declared within the function
+    //                                                  vvv make sure user who edits post is the one who created it
+    Post.updateOne({ _id: request.params.id, creator: request.userData.userId }, post).then(result => {
       response.status(200).json({ message: "update successful" });
     });
   }
