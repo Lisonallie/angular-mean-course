@@ -107,6 +107,7 @@ export class AuthService {
     this.authStatusListener.next(false);
     this.router.navigate(['/login']);
     this.clearAuthData();
+    this.userId = null;
     //clears timer upon logout
     clearTimeout(this.tokenTimer);
   }
