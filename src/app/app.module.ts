@@ -47,6 +47,8 @@ import { ErrorComponent } from './error/error.component';
   //                                                                    vv can accept multiple interceptors
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  //informs angular that this component is going to get used even though angular can't see it (no selector)
+  entryComponents: [ErrorComponent]
 })
 export class AppModule { }

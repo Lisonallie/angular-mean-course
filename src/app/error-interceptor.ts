@@ -3,6 +3,7 @@ import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { ErrorComponent } from './error/error.component';
 
 //interceptor is official feature provided by the angular http client 
 //functions that will run on any outgoing http request, can then manipulate these requests, ex: attaching our token
@@ -18,9 +19,8 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             //allows us to handle errors emitted in this stream of requests
             catchError((error: HttpErrorResponse) => {
-                console.log(error);
-                alert(error.error.error.message);
-                //need to return an observable here
+                this.dialog.open(ErrorComponent);
+                    //need to return an observable here
                 return throwError(error);
                 
             })
