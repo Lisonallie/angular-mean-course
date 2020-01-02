@@ -62,7 +62,7 @@ export class AuthService {
           // creates a date object for the current moment, need it to be able to pass as argument to saveauthdata
           const now = new Date();
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
-          this.saveAuthData('token', expirationDate);          
+          this.saveAuthData('token', expirationDate, 'userId');          
           //redirect to homepage
           this.router.navigate(['/']);
         }
