@@ -72,7 +72,7 @@ export class AuthService {
   }
 
   //store data in the local storage once authenticated
-  private saveAuthData() {
-    
+  private saveAuthData(token: string, expirationDate: Date) {
+
   }
 }
