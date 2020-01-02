@@ -11,6 +11,7 @@ export class AuthService {
   private isAuthenticated = false;
   private token: string;
   private tokenTimer: NodeJS.Timer;
+  private userId: string;
   //want to be able to push that token info to the component that needs it 
   private authStatusListener = new Subject<boolean>();
 
