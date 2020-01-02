@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService) {}
   //use auth service to get the token we need
   ngOnInit() {
+    this.userIsAuthenticated = this.authService.getAuthStatus();
     //set up subscription to the authStatusListener in auth.service.js
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       //push the information to the component and use it in the component
