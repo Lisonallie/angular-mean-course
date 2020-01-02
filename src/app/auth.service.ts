@@ -73,8 +73,8 @@ export class AuthService {
       //if yes then user should be authenticated
       this.token = authInformation.token;
       this.isAuthenticated = true;
-      //Set timer
-      this.setAuthTimer(expiresIn);
+      //Set timer, authtimer works in seconds so have to get back to milliseconds
+      this.setAuthTimer(expiresIn / 1000);
       //                            vvv the user is authenticated
       this.authStatusListener.next(true);
 
