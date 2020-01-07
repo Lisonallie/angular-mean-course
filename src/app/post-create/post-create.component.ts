@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'; //removed NgForm from import
 import { PostsService } from '../posts.service';
 import { ActivatedRoute } from '@angular/router';
@@ -13,7 +13,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './post-create.component.html',
   styleUrls: ['./post-create.component.css']
 })
-export class PostCreateComponent implements OnInit {
+export class PostCreateComponent implements OnInit, OnDestroy {
   enteredTitle = "";
   enteredContent = "";
   //private property just means it's only useable in this file
@@ -118,6 +118,10 @@ export class PostCreateComponent implements OnInit {
                               // this.postCreated.emit(post);  important to bind post as argument to it so it will output the title and content.
     this.form.reset(); //resets the form values after it's been submitted
     //form.resetForm() for template-driven form
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 
 }
