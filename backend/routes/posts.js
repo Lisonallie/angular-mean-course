@@ -85,6 +85,11 @@ router.post(
           // id: createdPost._id
         }
       });
+    })
+    .catch(error => {
+      response.status(500).json({
+        message: "Creating a post failed"
+      })
     });
     //typical status code for everything is ok, new resource was created
     //can't add next() here because we are already sending a response so would get an error
@@ -123,6 +128,11 @@ router.patch(
       } else {
         response.status(401).json({ message: "Not authorized" });
       }
+    })
+    .catch(error => {
+      response.status(500).json({
+        message: "Couldn't update post"
+      })
     });
   }
 );
@@ -167,6 +177,11 @@ router.get("", (request, response, next) => {
         // # of posts we have in the database in total (found from count method)
         maxPosts: count
       });
+    })
+    .catch(error => {
+      response.status(500).json({
+        message: "Fetching posts failed"
+      })
     });
   //   const posts = [
   //     {
@@ -194,6 +209,11 @@ router.get("/:id", (request, response, next) => {
     } else {
       response.status(404).json({ message: "post not found" });
     }
+  })
+  .catch(error => {
+    response.status(500).json({
+      message: "Fetching post failed"
+    })
   });
 });
 
@@ -208,6 +228,11 @@ router.delete(
       } else {
         response.status(401).json({ message: "Not authorized" });
       }
+    })
+    .catch(error => {
+      response.status(500).json({
+        message: "Fetching posts failed"
+      })
     });
   }
 );
