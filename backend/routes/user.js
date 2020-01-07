@@ -31,8 +31,9 @@ router.post("/signup", (request, response, next) => {
         //to show what happens when we try to add a user whose email is already stored in the database
         .catch(error => {
           response.status(500).json({
-            //      vv holds the error I'm getting
-            error: error
+            //      vv holds the error I'm getting (old code)
+            //error: error  <---- old code
+              message: "Invalid authentication credentials"
           });
         });
     });
