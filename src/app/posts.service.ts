@@ -4,6 +4,9 @@ import { Subject } from 'rxjs';
 import { Post } from './post.model';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { environment } from "../environments/environment";
+
+const BACKEND_URL = environment.apiUrl + "/posts/";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +28,7 @@ export class PostsService {
     //get method here already handles the json format input and outputs javascript
     this.http
     .get<{id: string, message: string, posts: any, maxPosts: number}>(
-      'http://localhost:3000/api/posts' + queryParams
+      BACKEND_URL + queryParams
       )
       //postData is declared here & given a value
       .pipe(map((postData) => {
@@ -58,7 +61,7 @@ export class PostsService {
   getPost(id: string) {
     //pull out all the properties of an object & add them to a new object
     //                        vv executed on every post in the array, check if the post we're looking at has the same id as our id: string we're passing as an argument
-    return this.http.get<{_id: string, title: string, content: string, imagePath: string, creator: string}>("http://localhost:3000/api/posts/" + id);
+    return this.http.get<{_id: string, title: string, content: string, imagePath: string, creator: string}>(BACKEND_URL + id);
     // old code --> return {...this.posts.find(post => post.id === id)};
   }
 
@@ -74,7 +77,7 @@ export class PostsService {
 
     //Store it on the server (optimistic updating) updating local data before we have serverside communication that it's succeeded
     //                                                                         vvv need to subscribe to the response or it does nothing
-    this.http.post<{ message: string; post: Post }>("http://localhost:3000/api/posts", postData).subscribe((responseData) => {
+    this.http.post<{ message: string; post: Post }>(BACKEND_URL, postData).subscribe((responseData) => {
       // old code vvv only need to keep the route navigation because in the post-list component we already get all this information  
       
     // console.log(responseData.message);
@@ -103,7 +106,7 @@ export class PostsService {
     } else {
       postData = { id: id, title: title, content: content, imagePath: image, creator: null}
     }
-    this.http.patch("http://localhost:3000/api/posts/" + id, postData)
+    this.http.patch(BACKEND_URL + id, postData)
       .subscribe(response => {
         // old code vvv only need to keep the route navigation because in the post-list component we already get all this information
 
@@ -129,7 +132,7 @@ export class PostsService {
   deletePost(postId: string) {
     const confirmation = window.confirm("Are you sure you want to delete this post?");
     //vv added return
-    return this.http.delete("http://localhost:3000/api/posts/" + postId);
+    return this.http.delete(BACKEND_URL + postId);
     // old code vvv here we need to re-fetch data now that we're updating posts, need to subscribe in the post-list component
 
       // .subscribe(() => {
