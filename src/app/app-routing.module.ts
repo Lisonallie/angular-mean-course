@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: '', component: PostListComponent },
   { path: 'create', component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: 'edit/:postId', component: PostCreateComponent, canActivate: [AuthGuard] },
+  //        vvv because of this need to adjust link to /auth/login & /auth/signup in frontend header.component.html so it goes to the correct address
   { path: 'auth', loadChildren: () => import('./auth.module').then(m => m.AuthModule) }, // connect this to child
   //{ loadChildren: () => import('./your-module-path/module-name.module').then(m => m.ModuleName)};
   { path: '**', redirectTo: '/'}
