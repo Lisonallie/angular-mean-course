@@ -130,7 +130,6 @@ export class PostsService {
   }
 
   deletePost(postId: string) {
-    const confirmation = window.confirm("Are you sure you want to delete this post?");
     //vv added return
     return this.http.delete(BACKEND_URL + postId);
     // old code vvv here we need to re-fetch data now that we're updating posts, need to subscribe in the post-list component
