@@ -25,7 +25,7 @@ module.exports = (request, response, next) => {
   } catch (error) {  //if it fails
     //don't have a token, not authenticated
     response.status(401).json({
-        message: "Authorization failed"
+        message: "Invalid token. You are not authenticated"
     })
   }
   

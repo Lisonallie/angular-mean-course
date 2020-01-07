@@ -87,7 +87,7 @@ router.post("/login", (request, response, next) => {
     })
     .catch(error => {      
       return response.status(401).json({
-        message: "Authorization failed, password does not match"
+        message: "Email or password does not match"
       })
     });
 });
