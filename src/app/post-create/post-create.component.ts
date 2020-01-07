@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ParamMap } from '@angular/router';
 import { Post } from '../post.model';
 import { mimeType } from './mime-type.validator';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-post-create',
@@ -17,6 +19,7 @@ export class PostCreateComponent implements OnInit {
   //private property just means it's only useable in this file
   private mode = 'create';
   private postId: string;
+  private authStatusSub: Subscription;
   //if it's pulic like below, can access it from within the template
   post: Post;
   isLoading = false;
@@ -27,9 +30,14 @@ export class PostCreateComponent implements OnInit {
                                         //removed @Output as it won't be needed anymore
                                         //postCreated = new EventEmitter<Post>(); all removed don't need it anymore--replaced by Service
 
-  constructor(public postsService: PostsService, public route: ActivatedRoute) {} //making it public lets you not have to make a bunch of other declarations to let angular know it's there and being used.
+  constructor(public postsService: PostsService, public route: ActivatedRoute, private authService: AuthService) {} //making it public lets you not have to make a bunch of other declarations to let angular know it's there and being used.
 
   ngOnInit() {
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
+      authStatus => {
+        this.isLoading = false;
+      }
+    );
     this.form = new FormGroup({
       //good practice to wrap in single quotations
       //                       vv 1st argument is the beginning form (default) state: null for empty 
