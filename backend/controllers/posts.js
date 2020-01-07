@@ -72,7 +72,8 @@ exports.updatePost = (request, response, next) => {
   )
     .then(result => {
       // if we did update the post
-      if (result.nModified > 0) {
+      // n was nModified, old code
+      if (result.n > 0) {
         response.status(200).json({ message: "Update successful" });
       } else {
         response.status(401).json({ message: "Not authorized" });
