@@ -4,6 +4,8 @@ const PostController = require("../controllers/posts");
 
 const router = express.Router();
 const checkAuth = require("../middleware/check-auth");
+const extractFile = require("../middleware/extract-file");
+
 
 //ataches a middleware triggered for incoming post requests
 //can add extra middleware before the function is executed
@@ -14,7 +16,7 @@ const checkAuth = require("../middleware/check-auth");
 router.post(
   "",
   checkAuth,
-  ,
+  extractFile,
   PostController.createPost
 );
 
@@ -22,7 +24,7 @@ router.post(
 router.patch(
   "/:id",
   checkAuth,
-  ,
+  extractFile,
   PostController.updatePost
 );
 
