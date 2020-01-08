@@ -55,7 +55,7 @@ app.use((request, response, next) => {
   //if it doesn't have these headers access will be blocked
   response.setHeader(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-Width, Content-Type, Accept, Authorization"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
   //allows us to control which methods can be used to access our data
   //OPTIONS is a default request sent by the browser before sending the get/etc request to check if it's valid. must include
