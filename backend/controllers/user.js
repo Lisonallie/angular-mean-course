@@ -67,7 +67,8 @@ exports.userLogin = (request, response, next) => {
           userId: fetchedUser._id
         }, 
         //enter our own secret(password) for creating these tokens that'll be stored on the server and will be used to validate these hashes(why they're uncrackable)
-        'secret_this_should_be_longer',
+        // vvvvvvvvvvvvvvv comes from nodemon.json file
+        process.env.JWT_KEY,
         //configure the token(optional)
         {expiresIn: "1h"}
         );      

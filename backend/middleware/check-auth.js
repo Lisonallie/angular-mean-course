@@ -18,7 +18,7 @@ module.exports = (request, response, next) => {
     //verify token
     //      vv also throws an error if it doesn't verify
     //                  vv same secret string as defined in user.js
-    const decodedToken = jwt.verify(token, "secret_this_should_be_longer");
+    const decodedToken = jwt.verify(token, process.env.JWT_KEY);
     //                                  vvv these parameters are created in the user route
     request.userData = {email: decodedToken.email, userId: decodedToken.userId};
     next();
