@@ -47,7 +47,6 @@ exports.createPost = (request, response, next) => {
 };
 
 exports.updatePost = (request, response, next) => {
-  console.log(request.file);
   let imagePath = request.body.imagePath;
   if (request.file) {
     const url = request.protocol + "://" + request.get("host");
