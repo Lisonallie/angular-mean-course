@@ -20,7 +20,7 @@ const MIME_TYPE_MAP = {
       }
       //      vvv if it gets an error
       //              vv where to store images, this path is seen relative to your server.js file
-      callback(error, "backend/images");
+      callback(error, "images");
     },
     //filename
     filename: (request, file, callback) => {

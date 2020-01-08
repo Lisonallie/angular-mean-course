@@ -45,7 +45,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //      vv apply only to requests with this url, will be allowed to continue & fetch that url
 //but this won't work because the images are actually stored in the backend folder
 //                                vvvvvvvvvvv so this makes that any requests going to /images are forwarded to backend/images
-app.use("/images", express.static(path.join("backend/images")));
+app.use("/images", express.static(path.join("images")));
 
 //one additional middleware that adds CORS header
 app.use((request, response, next) => {
