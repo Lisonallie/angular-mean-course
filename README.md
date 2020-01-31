@@ -32,19 +32,24 @@ The signup page is where a new account can be registered with the fields 'E-mail
 
 ### How it looks
 The user comes to the app page and in the first instance sees the list of existing posts in the database with the ability to choose how many posts they want to see per page:
+
 ![](https://img.techpowerup.org/200131/navbarapppost.png)
 ![](https://img.techpowerup.org/200131/postapppreview.png)
 
 A user can then choose to sign up, creating a new user:
+
 ![](https://img.techpowerup.org/200131/signupapppost.png)
 
 Once the new user is created, they can navigate to the login page by clicking Login in the nav bar:
+
 ![](https://img.techpowerup.org/200131/loginapppost.png)
 
 After the user has logged in, they come back to the first page of the app (all posts), except this time they are logged in. A user can then choose to create a post by clicking New Post in the nav bar. The user fills in the fields as requested, and when choosing an image a window pops up that lets the user choose a local image. When the user clicks 'Save Post', the post is saved to the database and becomes a part of the list of visible posts:
+
 ![](https://img.techpowerup.org/200131/newpostapppost.png)
 
 If a user has created a post, they will have the option to EDIT or DELETE that same post. A user may not delete or edit posts from other users.
+
 ![](https://img.techpowerup.org/200131/editdeleteapppost.png)
 
 If the user edits a post, the updated values will reflect in the changed post. If the user deletes a post, the post will disappear automatically from the view.
