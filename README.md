@@ -1,5 +1,3 @@
-## This project is deployed [here](http://angular-mean-node-post-app.s3-website-us-east-1.amazonaws.com/).
-
 ### What it is
 This was a project to learn the MEAN stack by creating a posting app. The MEAN stack is mongoDB, Express framework, angular, nodejs.
 
